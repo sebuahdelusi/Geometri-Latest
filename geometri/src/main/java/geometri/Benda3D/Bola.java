@@ -8,7 +8,7 @@ public class Bola extends Lingkaran {
     protected double luasPermukaanBola;
 
     public Bola(double jariJari) {
-        super(jariJari, "Bola (berbasis Lingkaran)");
+        super(jariJari);
     }
 
     public double hitungVolume() {
@@ -16,17 +16,25 @@ public class Bola extends Lingkaran {
         return volume;
     }
 
+    public double hitungVolume(double jariJari) {
+        if (jariJari <= 0) {
+            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
+        }
+        volume = (4.0 / 3.0) * Math.PI * Math.pow(jariJari, 3);
+        return volume;
+    }
+
     public double hitungLuasPermukaan() {
+        luasPermukaanBola = 4 * Math.PI * Math.pow(super.jariJari, 2);
+        return luasPermukaanBola;
+    }
+
+    public double hitungLuasPermukaan(double jariJari) {
+        if (jariJari <= 0) {
+            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
+        }
         luasPermukaanBola = 4 * Math.PI * Math.pow(jariJari, 2);
         return luasPermukaanBola;
     }
 
-    public double hitungLuasPenampangTengah() {
-        
-        return super.hitungLuas();
-    }
-
-    public double hitungKelilingLingkaranBesar() {
-        return super.hitungKeliling();
-    }
 }

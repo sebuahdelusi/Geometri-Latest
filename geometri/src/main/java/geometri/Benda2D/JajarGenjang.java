@@ -4,11 +4,11 @@ import geometri.AbstractGeometriDasar;
 
 public class JajarGenjang extends AbstractGeometriDasar {
 
-    private double alas; // Dimensi dasar tetap private
-    private double tinggi;
-    private double sisiMiring;
-    protected double luas;
-    protected double keliling;
+    public double alas; // Dimensi dasar tetap private
+    public double tinggi;
+    public double sisiMiring;
+    public double luas;
+    public double keliling;
 
     public JajarGenjang(double alas, double tinggi, double sisiMiring) {
         super("Jajar Genjang");
@@ -26,13 +26,26 @@ public class JajarGenjang extends AbstractGeometriDasar {
         return luas;
     }
 
+    public double hitungLuas(double alas, double tinggi) {
+        if (alas <= 0 || tinggi <= 0) {
+            throw new IllegalArgumentException("Alas dan tinggi harus bernilai positif.");
+        }
+        luas = alas * tinggi;
+        return luas;
+    }
+
     @Override
     public double hitungKeliling() {
         keliling = 2 * (alas + sisiMiring);
         return keliling;
     }
 
-    public double getAlas() { return alas; }
-    public double getTinggi() { return tinggi; }
-    public double getSisiMiring() { return sisiMiring; }
+    public double hitungKeliling(double alas, double sisiMiring) {
+        if (alas <= 0 || sisiMiring <= 0) {
+            throw new IllegalArgumentException("Alas dan sisi miring harus bernilai positif.");
+        }
+        keliling = 2 * (alas + sisiMiring);
+        return keliling;
+    }
+
 }

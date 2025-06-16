@@ -4,13 +4,13 @@ import geometri.AbstractGeometriDasar;
 
 public class Segitiga extends AbstractGeometriDasar {
 
-    private double alasUntukLuas; // Dimensi dasar tetap private
-    private double tinggiUntukLuas;
-    private double sisiA;
-    private double sisiB;
-    private double sisiC;
-    protected double luas;
-    protected double keliling;
+    public double alasUntukLuas; // Dimensi dasar tetap private
+    public double tinggiUntukLuas;
+    public double sisiA;
+    public double sisiB;
+    public double sisiC;
+    public double luas;
+    public double keliling;
 
     public Segitiga(double alas, double tinggi, double sisiA, double sisiB, double sisiC) {
         super("Segitiga");
@@ -33,15 +33,30 @@ public class Segitiga extends AbstractGeometriDasar {
         return luas;
     }
 
+    public double hitungLuas(double alas, double tinggi) {
+        if (alas <= 0 || tinggi <= 0) {
+            throw new IllegalArgumentException("Alas dan tinggi harus bernilai positif.");
+        }
+        luas = 0.5 * alas * tinggi;
+        return luas;
+    }
+
     @Override
     public double hitungKeliling() {
         keliling = sisiA + sisiB + sisiC;
         return keliling;
     }
 
-    public double getAlasUntukLuas() { return alasUntukLuas; } // Getter untuk field yang diganti namanya
-    public double getTinggiUntukLuas() { return tinggiUntukLuas; } // Getter untuk field yang diganti namanya
-    public double getSisiA() { return sisiA; }
-    public double getSisiB() { return sisiB; }
-    public double getSisiC() { return sisiC; }
+    public double hitungKeliling(double sisiA, double sisiB, double sisiC) {
+        if (sisiA <= 0 || sisiB <= 0 || sisiC <= 0) {
+            throw new IllegalArgumentException("Sisi A, B, dan C harus bernilai positif.");
+        }
+        if (sisiA + sisiB <= sisiC || sisiA + sisiC <= sisiB || sisiB + sisiC <= sisiA) {
+            throw new IllegalArgumentException("Dimensi sisi-sisi tidak membentuk segitiga yang valid.");
+        }
+        keliling = sisiA + sisiB + sisiC;
+        return keliling;
+    }
+
+
 }

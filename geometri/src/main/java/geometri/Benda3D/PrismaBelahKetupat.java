@@ -8,8 +8,8 @@ public class PrismaBelahKetupat extends BelahKetupat {
     protected double volume;
     protected double luasPermukaanPrismaBK;
 
-    public PrismaBelahKetupat(double diagonal1Alas, double diagonal2Alas, double sisiAlas, double tinggiPrisma) {
-        super(diagonal1Alas, diagonal2Alas, sisiAlas);
+    public PrismaBelahKetupat(double diagonal1Alas, double diagonal2Alas, double sisi, double tinggiPrisma) {
+        super(diagonal1Alas, diagonal2Alas, sisi);
         if (tinggiPrisma <= 0) {
             throw new IllegalArgumentException("Tinggi prisma harus bernilai positif.");
         }
@@ -21,11 +21,16 @@ public class PrismaBelahKetupat extends BelahKetupat {
         return volume;
     }
 
+    public double hitungVolume(double diagonal1Alas, double diagonal2Alas,double tinggiPrisma) {
+        if (diagonal1Alas <= 0 || diagonal2Alas <= 0 || tinggiPrisma <= 0) {
+            throw new IllegalArgumentException("Diagonal alas, dan tinggi prisma harus bernilai positif.");
+        }
+        volume = super.hitungLuas(diagonal1Alas, diagonal2Alas) * tinggiPrisma;
+        return volume;
+    }
+
     public double hitungLuasPermukaan() {
-        double luasAlasBK = super.hitungLuas();
-        double kelilingAlasBK = super.hitungKeliling();
-        double luasSelubung = kelilingAlasBK * tinggiPrisma;
-        luasPermukaanPrismaBK = (2 * luasAlasBK) + luasSelubung;
+        luasPermukaanPrismaBK = (2 * super.hitungLuas()) + (super.hitungKeliling() * tinggiPrisma);
         return luasPermukaanPrismaBK;
     }
 

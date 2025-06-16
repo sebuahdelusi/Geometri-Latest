@@ -14,7 +14,8 @@ public interface BangunGeometri {
 
     /**
      * Menghitung keliling bangun geometri.
-     * @return keliling bangun geometri.
+     *
+     * @return
      */
     double hitungKeliling();
 }

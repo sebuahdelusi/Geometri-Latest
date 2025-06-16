@@ -4,34 +4,40 @@ import geometri.Benda2D.Persegi;
 
 public class PrismaPersegi extends Persegi {
 
-    private double tinggiPrisma;
+
     protected double volume;
     protected double luasPermukaanPrisma;
 
-    public PrismaPersegi(double sisiAlas, double tinggiPrisma) {
+    public PrismaPersegi(double sisiAlas) {
         super(sisiAlas);
-        if (tinggiPrisma <= 0) {
-            throw new IllegalArgumentException("Tinggi prisma harus bernilai positif.");
-        }
-        this.tinggiPrisma = tinggiPrisma;
     }
 
     public double hitungVolume() {
         // super.hitungLuas() akan menghitung dan menyimpan luas alas di objek Persegi
         // dan mengembalikannya
-        volume = super.hitungLuas() * tinggiPrisma;
+        volume = Math.pow(super.hitungLuas(), 2);
+        return volume;
+    }
+
+    public double hitungVolume(double sisiPersegi, double tinggiPrisma) {
+        if (sisiPersegi <= 0 || tinggiPrisma <= 0) {
+            throw new IllegalArgumentException("Sisi alas dan tinggi prisma harus bernilai positif.");
+        }
+        volume = super.hitungLuas(sisiPersegi) * tinggiPrisma;
         return volume;
     }
 
     public double hitungLuasPermukaan() {
-        double luasAlasPrisma = super.hitungLuas();
-        double kelilingAlasPrisma = super.hitungKeliling();
-        double luasSelubung = kelilingAlasPrisma * tinggiPrisma;
-        luasPermukaanPrisma = (2 * luasAlasPrisma) + luasSelubung;
+        luasPermukaanPrisma = 6 * Math.sqrt(super.hitungLuas());
         return luasPermukaanPrisma;
     }
 
-    public double getTinggiPrisma() {
-        return tinggiPrisma;
+    public double hitungLuasPermukaan(double sisiPersegi) {
+        if (sisiPersegi <= 0) {
+            throw new IllegalArgumentException("Sisi alas dan tinggi prisma harus bernilai positif.");
+        }
+        luasPermukaanPrisma = 6 * Math.sqrt(super.hitungLuas(sisiPersegi));
+        return luasPermukaanPrisma;
     }
+
 }

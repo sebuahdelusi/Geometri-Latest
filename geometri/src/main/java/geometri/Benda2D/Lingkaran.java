@@ -7,32 +7,12 @@ import geometri.AbstractGeometriDasar;
  */
 public class Lingkaran extends AbstractGeometriDasar {
 
-    protected double jariJari;
-    protected double luas;
-    protected double keliling;
-    protected double diameterLingkaran;
+    public double jariJari;
+    public double luas;
+    public double keliling;
 
     public Lingkaran(double jariJari) {
         super("Lingkaran");
-        if (jariJari <= 0) {
-            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
-        }
-        this.jariJari = jariJari;
-    }
-
-    public Lingkaran(double diameterInput, boolean isDiameter) {
-        super("Lingkaran (dari Diameter)");
-        if (!isDiameter) {
-            throw new IllegalArgumentException("Gunakan konstruktor Lingkaran(jariJari) untuk input jari-jari.");
-        }
-        if (diameterInput <= 0) {
-            throw new IllegalArgumentException("Diameter harus bernilai positif.");
-        }
-        this.jariJari = diameterInput / 2.0;
-    }
-
-    protected Lingkaran(double jariJari, String namaBangun) {
-        super(namaBangun);
         if (jariJari <= 0) {
             throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
         }
@@ -45,18 +25,26 @@ public class Lingkaran extends AbstractGeometriDasar {
         return luas;
     }
 
+    public double hitungLuas(double jariJari) {
+        if (jariJari <= 0) {
+            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
+        }
+        luas = Math.PI * jariJari * jariJari; //
+        return luas;
+    }
+
     @Override
     public double hitungKeliling() {
         keliling =  2 * Math.PI * jariJari; // 
         return keliling;
     }
 
-    public double getJariJari() {
-        return jariJari; 
+    public double hitungKeliling(double jariJari) {
+        if (jariJari <= 0) {
+            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
+        }
+        keliling = 2 * Math.PI * jariJari; //
+        return keliling;
     }
 
-    public double getDiameter() {
-        diameterLingkaran = 2 * jariJari; // 
-        return diameterLingkaran;
-    }
 }

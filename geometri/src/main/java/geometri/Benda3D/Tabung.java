@@ -9,7 +9,7 @@ public class Tabung extends Lingkaran {
     protected double luasPermukaanTabung;
 
     public Tabung(double jariJari, double tinggi) {
-        super(jariJari, "Tabung (berbasis Lingkaran)");
+        super(jariJari);
         if (tinggi <= 0) {
             throw new IllegalArgumentException("Tinggi tabung harus bernilai positif.");
         }
@@ -21,6 +21,14 @@ public class Tabung extends Lingkaran {
         return volume;
     }
 
+    public double hitungVolume(double jariJari, double tinggi) {
+        if (jariJari <= 0 || tinggi <= 0) {
+            throw new IllegalArgumentException("Jari-jari dan tinggi tabung harus bernilai positif.");
+        }
+        volume = super.hitungLuas(jariJari) * tinggi;
+        return volume;
+    }
+
     public double hitungLuasPermukaan() {
         double luasAlasTabung = super.hitungLuas();
         double kelilingAlasTabung = super.hitungKeliling();
@@ -29,7 +37,15 @@ public class Tabung extends Lingkaran {
         return luasPermukaanTabung;
     }
 
-    public double getTinggi() {
-        return tinggi;
+    public double hitungLuasPermukaan(double jariJari, double tinggi) {
+        if (jariJari <= 0 || tinggi <= 0) {
+            throw new IllegalArgumentException("Jari-jari dan tinggi tabung harus bernilai positif.");
+        }
+        double luasAlasTabung = super.hitungLuas(jariJari);
+        double kelilingAlasTabung = super.hitungKeliling(jariJari);
+        double luasSelimut = kelilingAlasTabung * tinggi;
+        luasPermukaanTabung = (2 * luasAlasTabung) + luasSelimut;
+        return luasPermukaanTabung;
     }
+
 }

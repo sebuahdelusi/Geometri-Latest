@@ -4,13 +4,13 @@ import geometri.AbstractGeometriDasar;
 
 public class Trapesium extends AbstractGeometriDasar {
 
-    private double sisiAtas; // Dimensi dasar tetap private
-    private double sisiBawah;
-    private double tinggi;
-    private double sisiKiri;
-    private double sisiKanan;
-    protected double luas;
-    protected double keliling;
+    public double sisiAtas; // Dimensi dasar tetap private
+    public double sisiBawah;
+    public double tinggi;
+    public double sisiKiri;
+    public double sisiKanan;
+    public double luas;
+    public double keliling;
 
     public Trapesium(double sisiAtas, double sisiBawah, double tinggi, double sisiKiri, double sisiKanan) {
         super("Trapesium");
@@ -30,15 +30,26 @@ public class Trapesium extends AbstractGeometriDasar {
         return luas;
     }
 
+    public double hitungLuas(double sisiAtas, double sisiBawah, double tinggi) {
+        if (sisiAtas <= 0 || sisiBawah <= 0 || tinggi <= 0) {
+            throw new IllegalArgumentException("Sisi atas, bawah, dan tinggi harus bernilai positif.");
+        }
+        luas = 0.5 * (sisiAtas + sisiBawah) * tinggi;
+        return luas;
+    }
+
     @Override
     public double hitungKeliling() {
         keliling = sisiAtas + sisiBawah + sisiKiri + sisiKanan;
         return keliling;
     }
 
-    public double getSisiAtas() { return sisiAtas; }
-    public double getSisiBawah() { return sisiBawah; }
-    public double getTinggi() { return tinggi; }
-    public double getSisiKiri() { return sisiKiri; }
-    public double getSisiKanan() { return sisiKanan; }
+    public double hitungKeliling(double sisiAtas, double sisiBawah, double sisiKiri, double sisiKanan) {
+        if (sisiAtas <= 0 || sisiBawah <= 0 || sisiKiri <= 0 || sisiKanan <= 0) {
+            throw new IllegalArgumentException("Sisi atas, bawah, kiri, dan kanan harus bernilai positif.");
+        }
+        keliling = sisiAtas + sisiBawah + sisiKiri + sisiKanan;
+        return keliling;
+    }
+
 }

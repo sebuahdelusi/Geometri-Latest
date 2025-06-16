@@ -10,7 +10,7 @@ public class Kerucut extends Lingkaran {
     protected double luasPermukaanKerucut;
 
     public Kerucut(double jariJari, double tinggi) {
-        super(jariJari, "Kerucut (berbasis Lingkaran)");
+        super(jariJari);
         if (tinggi <= 0) {
             throw new IllegalArgumentException("Tinggi kerucut harus bernilai positif.");
         }
@@ -18,12 +18,20 @@ public class Kerucut extends Lingkaran {
     }
 
     public double getGarisPelukis() {
-        garisPelukisKerucut = Math.sqrt(Math.pow(jariJari, 2) + Math.pow(tinggi, 2));
+        garisPelukisKerucut = Math.sqrt(Math.pow(super.jariJari, 2) + Math.pow(tinggi, 2));
         return garisPelukisKerucut;
     }
 
     public double hitungVolume() {
         volume = (1.0 / 3.0) * super.hitungLuas() * tinggi;
+        return volume;
+    }
+
+    public double hitungVolume(double jariJariKerucut, double tinggiKerucut) {
+        if (jariJari <= 0 || tinggi <= 0) {
+            throw new IllegalArgumentException("Jari-jari dan tinggi kerucut harus bernilai positif.");
+        }
+        volume = (1.0 / 3.0) * super.hitungLuas(jariJariKerucut) * tinggiKerucut;
         return volume;
     }
 

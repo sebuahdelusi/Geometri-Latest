@@ -4,11 +4,11 @@ import geometri.AbstractGeometriDasar;
 
 public class BelahKetupat extends AbstractGeometriDasar {
 
-    private double diagonal1; // Dimensi dasar tetap private
-    private double diagonal2;
-    private double sisi;
-    protected double luas;
-    protected double keliling;
+    public double diagonal1; // Dimensi dasar tetap private
+    public double diagonal2;
+    public double sisi;
+    public double luas;
+    public double keliling;
 
     public BelahKetupat(double diagonal1, double diagonal2, double sisi) {
         super("Belah Ketupat");
@@ -26,13 +26,28 @@ public class BelahKetupat extends AbstractGeometriDasar {
         return luas;
     }
 
+    public double hitungLuas(double diagonal1, double diagonal2) {
+        if (diagonal1 <= 0 || diagonal2 <= 0) {
+            throw new IllegalArgumentException("Diagonal harus bernilai positif.");
+        }
+        luas = (diagonal1 * diagonal2) / 2.0;
+        return luas;
+    }
+
     @Override
     public double hitungKeliling() {
         keliling = 4 * sisi;
         return keliling;
     }
 
-    public double getDiagonal1() { return diagonal1; }
-    public double getDiagonal2() { return diagonal2; }
-    public double getSisi() { return sisi; }
+    public double hitungKeliling(double sisi) {
+        if (sisi <= 0) {
+            throw new IllegalArgumentException("Sisi harus bernilai positif.");
+        }
+        keliling = 4 * sisi;
+        return keliling;
+    }
+
+
+
 }
