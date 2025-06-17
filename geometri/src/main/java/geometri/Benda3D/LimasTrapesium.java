@@ -2,53 +2,92 @@ package geometri.Benda3D;
 
 import geometri.Benda2D.Trapesium;
 
+/**
+ * Merepresentasikan bangun ruang Limas dengan alas berbentuk Trapesium.
+ */
 public class LimasTrapesium extends Trapesium {
 
-    private double tinggiLimas;
-    protected double volume;
-    protected double luasSelubungDenganParameter;
-    protected double luasPermukaanDenganParameter;
+    // Dimensi dan hasil kalkulasi dibuat public agar konsisten
+    public double tinggiLimas;
+    public double tinggiSisiTegakAtas;
+    public double tinggiSisiTegakBawah;
+    public double tinggiSisiTegakKiri;
+    public double tinggiSisiTegakKanan;
 
-    public LimasTrapesium(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlasTrapesium,
-                          double sisiKiriAlas, double sisiKananAlas, double tinggiLimas) {
-        super(sisiAtasAlas, sisiBawahAlas, tinggiAlasTrapesium, sisiKiriAlas, sisiKananAlas);
-        if (tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Tinggi limas harus bernilai positif.");
+    public double volume;
+    public double luasSelubung;
+    public double luasPermukaan;
+
+    /**
+     * Konstruktor lengkap untuk kalkulasi volume dan luas permukaan.
+     */
+    public LimasTrapesium(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlas,
+                          double sisiKiriAlas, double sisiKananAlas, double tinggiLimas,
+                          double tsAtas, double tsBawah, double tsKiri, double tsKanan) {
+        super(sisiAtasAlas, sisiBawahAlas, tinggiAlas, sisiKiriAlas, sisiKananAlas);
+        if (tinggiLimas <= 0 || tsAtas <= 0 || tsBawah <= 0 || tsKiri <= 0 || tsKanan <= 0) {
+            throw new IllegalArgumentException("Tinggi limas dan semua tinggi sisi tegak harus bernilai positif.");
         }
         this.tinggiLimas = tinggiLimas;
+        this.tinggiSisiTegakAtas = tsAtas;
+        this.tinggiSisiTegakBawah = tsBawah;
+        this.tinggiSisiTegakKiri = tsKiri;
+        this.tinggiSisiTegakKanan = tsKanan;
     }
 
+    /**
+     * Menghitung volume limas berdasarkan state objek.
+     */
     public double hitungVolume() {
-        volume = (1.0 / 3.0) * super.hitungLuas() * tinggiLimas;
-        return volume;
+        this.volume = (1.0 / 3.0) * super.hitungLuas() * this.tinggiLimas;
+        return this.volume;
     }
 
-    public double hitungLuasSelubung(double tsSisiAtas, double tsSisiBawah, double tsSisiKiri, double tsSisiKanan) {
-        if (tsSisiAtas <=0 || tsSisiBawah <=0 || tsSisiKiri <=0 || tsSisiKanan <=0) {
-            throw new IllegalArgumentException("Tinggi sisi tegak harus positif.");
-        }
-        double luasTegakAtas = 0.5 * getSisiAtas() * tsSisiAtas;
-        double luasTegakBawah = 0.5 * getSisiBawah() * tsSisiBawah;
-        double luasTegakKiri = 0.5 * getSisiKiri() * tsSisiKiri;
-        double luasTegakKanan = 0.5 * getSisiKanan() * tsSisiKanan;
-        luasSelubungDenganParameter = luasTegakAtas + luasTegakBawah + luasTegakKiri + luasTegakKanan;
-        return luasSelubungDenganParameter;
+    /**
+     * Menghitung luas selubung limas berdasarkan state objek.
+     */
+    public double hitungLuasSelubung() {
+        // Menggunakan field public secara langsung
+        double luasTegakAtas = 0.5 * this.sisiAtas * this.tinggiSisiTegakAtas;
+        double luasTegakBawah = 0.5 * this.sisiBawah * this.tinggiSisiTegakBawah;
+        double luasTegakKiri = 0.5 * this.sisiKiri * this.tinggiSisiTegakKiri;
+        double luasTegakKanan = 0.5 * this.sisiKanan * this.tinggiSisiTegakKanan;
+        this.luasSelubung = luasTegakAtas + luasTegakBawah + luasTegakKiri + luasTegakKanan;
+        return this.luasSelubung;
     }
 
-    public double hitungLuasPermukaan(double tsSisiAtas, double tsSisiBawah, double tsSisiKiri, double tsSisiKanan) {
-        double luasAlasLimas = super.hitungLuas();
-        double luasSelubungHitung = hitungLuasSelubung(tsSisiAtas, tsSisiBawah, tsSisiKiri, tsSisiKanan);
-        luasPermukaanDenganParameter = luasAlasLimas + luasSelubungHitung;
-        return luasPermukaanDenganParameter;
-    }
-
+    /**
+     * Menghitung luas permukaan total limas berdasarkan state objek.
+     */
     public double hitungLuasPermukaan() {
-        System.err.println("PERINGATAN: hitungLuasPermukaan() untuk LimasTrapesium umum dipanggil tanpa parameter tinggi sisi tegak. " +
-                "Hasil mungkin tidak akurat (hanya luas alas).");
-        return super.hitungLuas();
+        double luasAlasLimas = super.hitungLuas();
+        double luasSelubungLimas = this.hitungLuasSelubung();
+        this.luasPermukaan = luasAlasLimas + luasSelubungLimas;
+        return this.luasPermukaan;
     }
 
-    public double getTinggiLimas() {
-        return tinggiLimas;
+    // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
+
+    public double hitungVolume(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlas, double tinggiLimas) {
+        if (sisiAtasAlas <= 0 || sisiBawahAlas <= 0 || tinggiAlas <= 0 || tinggiLimas <= 0) {
+            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
+        }
+        double luasAlas = 0.5 * (sisiAtasAlas + sisiBawahAlas) * tinggiAlas;
+        this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
+        return this.volume;
+    }
+
+    public double hitungLuasPermukaan(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlas,
+                                      double sisiKiriAlas, double sisiKananAlas, double tsAtas,
+                                      double tsBawah, double tsKiri, double tsKanan) {
+        // Validasi bisa ditambahkan di sini
+        double luasAlas = 0.5 * (sisiAtasAlas + sisiBawahAlas) * tinggiAlas;
+        double luasTegakAtas = 0.5 * sisiAtasAlas * tsAtas;
+        double luasTegakBawah = 0.5 * sisiBawahAlas * tsBawah;
+        double luasTegakKiri = 0.5 * sisiKiriAlas * tsKiri;
+        double luasTegakKanan = 0.5 * sisiKananAlas * tsKanan;
+
+        this.luasPermukaan = luasAlas + luasTegakAtas + luasTegakBawah + luasTegakKiri + luasTegakKanan;
+        return this.luasPermukaan;
     }
 }

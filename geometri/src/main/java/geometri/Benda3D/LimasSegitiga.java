@@ -2,59 +2,88 @@ package geometri.Benda3D;
 
 import geometri.Benda2D.Segitiga;
 
+/**
+ * Merepresentasikan bangun ruang Limas dengan alas berbentuk Segitiga.
+ */
 public class LimasSegitiga extends Segitiga {
 
-    private double tinggiLimas;
-    protected double volume;
-    // luasPermukaanLimasSegitiga dan luasSelubungLimasSegitiga akan terkait dengan versi parameter
-    protected double luasPermukaanLimasSegitigaDenganParameter;
-    protected double luasSelubungLimasSegitigaDenganParameter;
+    // Dimensi dan hasil kalkulasi dibuat public agar konsisten
+    public double tinggiLimas;
+    public double tinggiSisiTegakA; // Tinggi sisi tegak pada sisiA
+    public double tinggiSisiTegakB; // Tinggi sisi tegak pada sisiB
+    public double tinggiSisiTegakC; // Tinggi sisi tegak pada sisiC
 
+    public double volume;
+    public double luasSelubung;
+    public double luasPermukaan;
 
-    public LimasSegitiga(double alasSegitigaAlas, double tinggiSegitigaAlas,
-                         double sisiA_alas, double sisiB_alas, double sisiC_alas,
-                         double tinggiLimas) {
+    /**
+     * Konstruktor lengkap untuk kalkulasi volume dan luas permukaan.
+     */
+    public LimasSegitiga(double alasSegitigaAlas, double tinggiSegitigaAlas, double sisiA_alas,
+                         double sisiB_alas, double sisiC_alas, double tinggiLimas,
+                         double tinggiSisiTegakA, double tinggiSisiTegakB, double tinggiSisiTegakC) {
         super(alasSegitigaAlas, tinggiSegitigaAlas, sisiA_alas, sisiB_alas, sisiC_alas);
-        if (tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Tinggi limas harus bernilai positif.");
+        if (tinggiLimas <= 0 || tinggiSisiTegakA <= 0 || tinggiSisiTegakB <= 0 || tinggiSisiTegakC <= 0) {
+            throw new IllegalArgumentException("Tinggi limas dan semua tinggi sisi tegak harus bernilai positif.");
         }
         this.tinggiLimas = tinggiLimas;
+        this.tinggiSisiTegakA = tinggiSisiTegakA;
+        this.tinggiSisiTegakB = tinggiSisiTegakB;
+        this.tinggiSisiTegakC = tinggiSisiTegakC;
     }
 
+    /**
+     * Menghitung volume limas berdasarkan state objek.
+     */
     public double hitungVolume() {
-        volume = (1.0 / 3.0) * super.hitungLuas() * tinggiLimas;
-        return volume;
+        this.volume = (1.0 / 3.0) * super.hitungLuas() * this.tinggiLimas;
+        return this.volume;
     }
 
-    // Metode ini bergantung pada parameter, jadi hasil disimpan dengan nama spesifik
-    public double hitungLuasSelubung(double tinggiSisiTegakA, double tinggiSisiTegakB, double tinggiSisiTegakC) {
-        if (tinggiSisiTegakA <= 0 || tinggiSisiTegakB <= 0 || tinggiSisiTegakC <= 0) {
-            throw new IllegalArgumentException("Tinggi sisi tegak harus positif.");
-        }
-        double luasTegakA = 0.5 * getSisiA() * tinggiSisiTegakA;
-        double luasTegakB = 0.5 * getSisiB() * tinggiSisiTegakB;
-        double luasTegakC = 0.5 * getSisiC() * tinggiSisiTegakC;
-        luasSelubungLimasSegitigaDenganParameter = luasTegakA + luasTegakB + luasTegakC;
-        return luasSelubungLimasSegitigaDenganParameter;
+    /**
+     * Menghitung luas selubung limas berdasarkan state objek.
+     */
+    public double hitungLuasSelubung() {
+        // Menggunakan field public secara langsung
+        double luasTegakA = 0.5 * this.sisiA * this.tinggiSisiTegakA;
+        double luasTegakB = 0.5 * this.sisiB * this.tinggiSisiTegakB;
+        double luasTegakC = 0.5 * this.sisiC * this.tinggiSisiTegakC;
+        this.luasSelubung = luasTegakA + luasTegakB + luasTegakC;
+        return this.luasSelubung;
     }
 
-    public double hitungLuasPermukaan(double tinggiSisiTegakA, double tinggiSisiTegakB, double tinggiSisiTegakC) {
-        double luasAlasLimas = super.hitungLuas();
-        // hitungLuasSelubung akan menyimpan hasilnya ke luasSelubungLimasSegitigaDenganParameter
-        double luasSelubungHitung = hitungLuasSelubung(tinggiSisiTegakA, tinggiSisiTegakB, tinggiSisiTegakC);
-        luasPermukaanLimasSegitigaDenganParameter = luasAlasLimas + luasSelubungHitung;
-        return luasPermukaanLimasSegitigaDenganParameter;
-    }
-
-    // Versi tanpa parameter, tidak ideal untuk limas umum
+    /**
+     * Menghitung luas permukaan total limas berdasarkan state objek.
+     */
     public double hitungLuasPermukaan() {
-        System.err.println("PERINGATAN: hitungLuasPermukaan() untuk LimasSegitiga umum dipanggil tanpa parameter tinggi sisi tegak. " +
-                "Hasil mungkin tidak akurat (hanya luas alas).");
-        // Tidak ada field luasPermukaanLimasSegitiga yang umum tanpa parameter
-        return super.hitungLuas();
+        double luasAlasLimas = super.hitungLuas();
+        double luasSelubungLimas = this.hitungLuasSelubung();
+        this.luasPermukaan = luasAlasLimas + luasSelubungLimas;
+        return this.luasPermukaan;
     }
 
-    public double getTinggiLimas() {
-        return tinggiLimas;
+    // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
+
+    public double hitungVolume(double alasSegitigaAlas, double tinggiSegitigaAlas, double tinggiLimas) {
+        if (alasSegitigaAlas <= 0 || tinggiSegitigaAlas <= 0 || tinggiLimas <= 0) {
+            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
+        }
+        double luasAlas = 0.5 * alasSegitigaAlas * tinggiSegitigaAlas;
+        this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
+        return this.volume;
+    }
+
+    public double hitungLuasPermukaan(double alasSegitigaAlas, double tinggiSegitigaAlas, double sisiA_alas,
+                                      double sisiB_alas, double sisiC_alas, double tinggiSisiTegakA,
+                                      double tinggiSisiTegakB, double tinggiSisiTegakC) {
+        // Validasi bisa ditambahkan di sini sesuai kebutuhan
+        double luasAlas = 0.5 * alasSegitigaAlas * tinggiSegitigaAlas;
+        double luasTegakA = 0.5 * sisiA_alas * tinggiSisiTegakA;
+        double luasTegakB = 0.5 * sisiB_alas * tinggiSisiTegakB;
+        double luasTegakC = 0.5 * sisiC_alas * tinggiSisiTegakC;
+
+        this.luasPermukaan = luasAlas + luasTegakA + luasTegakB + luasTegakC;
+        return this.luasPermukaan;
     }
 }

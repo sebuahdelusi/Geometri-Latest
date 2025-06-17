@@ -1,63 +1,102 @@
 package geometri.Benda3D;
 
-import geometri.Benda3D.Kerucut;
-
+/**
+ * Merepresentasikan bangun ruang Kerucut Terpancung (Frustum).
+ * Kelas ini mewarisi sifat-sifat dari Kerucut.
+ */
 public class KerucutTerpancung extends Kerucut {
 
-    private double jariJariAtas;
-    private double tinggiFrustum;
+    // Dimensi spesifik frustum, dibuat public agar konsisten
+    public double jariJariAtas;
+    public double tinggiFrustum;
 
-    protected double garisPelukisFrustumKT;
-    protected double volumeKT; // KT untuk KerucutTerpancung, menghindari konflik dengan 'volume' superclass
-    protected double luasPermukaanKT;
+    // Field 'garisPelukisKerucut', 'volume', dan 'luasPermukaanKerucut'
+    // sudah diwarisi (inherited) dari kelas Kerucut.
 
     public KerucutTerpancung(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
-        super(jariJariBawah, tinggiFrustum); // jariJariBawah menjadi super.jariJari, super.tinggi di-set ke tinggiFrustum (akan di-shadow)
-        if (jariJariAtas <= 0 || tinggiFrustum <= 0) { // jariJariBawah sudah divalidasi di superclass Lingkaran
+        // Catatan: Panggilan super() ini akan mengisi field 'tinggi' di kelas Kerucut
+        // dengan nilai 'tinggiFrustum', yang tidak digunakan di kelas ini.
+        // Ini adalah konsekuensi dari struktur pewarisan yang ada.
+        super(jariJariBawah, tinggiFrustum);
+
+        if (jariJariAtas <= 0 || tinggiFrustum <= 0) {
             throw new IllegalArgumentException("Jari-jari atas dan tinggi frustum harus bernilai positif.");
         }
-        if (jariJariAtas >= jariJariBawah) { // jariJariBawah diakses via super.getJariJari() atau this.jariJari (karena protected)
+        if (jariJariAtas >= jariJariBawah) {
             throw new IllegalArgumentException("Jari-jari atas harus lebih kecil dari jari-jari bawah.");
         }
         this.jariJariAtas = jariJariAtas;
         this.tinggiFrustum = tinggiFrustum;
     }
 
-    public double getGarisPelukisFrustum() {
-        double selisihJariJari = getJariJari() - jariJariAtas; // getJariJari() adalah jariJariBawah dari superclass
-        garisPelukisFrustumKT = Math.sqrt(Math.pow(tinggiFrustum, 2) + Math.pow(selisihJariJari, 2));
-        return garisPelukisFrustumKT;
+    /**
+     * Menghitung garis pelukis (s) dari frustum.
+     * Metode ini diubah namanya dari get... menjadi hitung... untuk kejelasan.
+     * Hasilnya disimpan di field 'garisPelukisKerucut' yang diwarisi.
+     */
+    public double hitungGarisPelukis() {
+        double selisihJariJari = this.jariJari - this.jariJariAtas; // this.jariJari adalah jari-jari bawah
+        // Menggunakan field 'garisPelukisKerucut' yang diwarisi
+        this.garisPelukisKerucut = Math.sqrt(Math.pow(this.tinggiFrustum, 2) + Math.pow(selisihJariJari, 2));
+        return this.garisPelukisKerucut;
     }
 
+    /**
+     * Menghitung volume kerucut terpancung berdasarkan state objek.
+     * Rumus: V = (1/3) * pi * h * (R^2 + R*r + r^2)
+     */
     @Override
     public double hitungVolume() {
-        double R = getJariJari();
-        double r = jariJariAtas;
-        volumeKT = (1.0 / 3.0) * Math.PI * tinggiFrustum * (R*R + R*r + r*r);
-        return volumeKT;
+        double R = this.jariJari; // Jari-jari bawah
+        double r = this.jariJariAtas;
+        // Menggunakan field 'volume' yang diwarisi
+        this.volume = (1.0 / 3.0) * Math.PI * this.tinggiFrustum * (R*R + R*r + r*r);
+        return this.volume;
     }
 
+    /**
+     * Menghitung luas permukaan total kerucut terpancung berdasarkan state objek.
+     * L = Luas Alas Bawah + Luas Alas Atas + Luas Selimut
+     */
     @Override
     public double hitungLuasPermukaan() {
-        double R = getJariJari();
-        double r = jariJariAtas;
+        double R = this.jariJari; // Jari-jari bawah
+        double r = this.jariJariAtas;
 
         double luasAlasBawah = Math.PI * R * R;
         double luasAlasAtas = Math.PI * r * r;
 
-        // Memastikan garisPelukisFrustumKT sudah dihitung
-        if (garisPelukisFrustumKT == 0) getGarisPelukisFrustum();
-        double luasSelimutFrustum = Math.PI * (R + r) * garisPelukisFrustumKT;
+        // Memanggil metode hitung untuk mendapatkan garis pelukis
+        double s = this.hitungGarisPelukis();
+        double luasSelimutFrustum = Math.PI * (R + r) * s;
 
-        luasPermukaanKT = luasAlasBawah + luasAlasAtas + luasSelimutFrustum;
-        return luasPermukaanKT;
+        // Menggunakan field 'luasPermukaanKerucut' yang diwarisi
+        this.luasPermukaanKerucut = luasAlasBawah + luasAlasAtas + luasSelimutFrustum;
+        return this.luasPermukaanKerucut;
     }
 
-    public double getJariJariAtas() {
-        return jariJariAtas;
+    // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
+
+    public double hitungVolume(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
+        if (jariJariBawah <= 0 || jariJariAtas <= 0 || tinggiFrustum <= 0 || jariJariAtas >= jariJariBawah) {
+            throw new IllegalArgumentException("Parameter untuk volume tidak valid.");
+        }
+        this.volume = (1.0 / 3.0) * Math.PI * tinggiFrustum * (Math.pow(jariJariBawah, 2) + jariJariBawah * jariJariAtas + Math.pow(jariJariAtas, 2));
+        return this.volume;
     }
 
-    public double getTinggiFrustum() {
-        return tinggiFrustum;
+    public double hitungLuasPermukaan(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
+        if (jariJariBawah <= 0 || jariJariAtas <= 0 || tinggiFrustum <= 0 || jariJariAtas >= jariJariBawah) {
+            throw new IllegalArgumentException("Parameter untuk luas permukaan tidak valid.");
+        }
+        double luasAlasBawah = Math.PI * jariJariBawah * jariJariBawah;
+        double luasAlasAtas = Math.PI * jariJariAtas * jariJariAtas;
+
+        double selisihJariJari = jariJariBawah - jariJariAtas;
+        double s = Math.sqrt(Math.pow(tinggiFrustum, 2) + Math.pow(selisihJariJari, 2));
+        double luasSelimut = Math.PI * (jariJariBawah + jariJariAtas) * s;
+
+        this.luasPermukaanKerucut = luasAlasBawah + luasAlasAtas + luasSelimut;
+        return this.luasPermukaanKerucut;
     }
 }

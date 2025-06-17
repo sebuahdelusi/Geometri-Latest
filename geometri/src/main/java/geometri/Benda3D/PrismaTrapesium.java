@@ -2,11 +2,15 @@ package geometri.Benda3D;
 
 import geometri.Benda2D.Trapesium;
 
+/**
+ * Merepresentasikan bangun ruang Prisma dengan alas berbentuk Trapesium.
+ */
 public class PrismaTrapesium extends Trapesium {
 
-    private double tinggiPrisma;
-    protected double volume;
-    protected double luasPermukaanPrismaTrapesium;
+    // Dimensi dan hasil kalkulasi dibuat public agar konsisten
+    public double tinggiPrisma;
+    public double volume;
+    public double luasPermukaan;
 
     public PrismaTrapesium(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlasTrapesium,
                            double sisiKiriAlas, double sisiKananAlas, double tinggiPrisma) {
@@ -17,20 +21,47 @@ public class PrismaTrapesium extends Trapesium {
         this.tinggiPrisma = tinggiPrisma;
     }
 
+    /**
+     * Menghitung volume prisma berdasarkan state objek.
+     * V = Luas Alas * Tinggi Prisma
+     */
     public double hitungVolume() {
-        volume = super.hitungLuas() * tinggiPrisma;
-        return volume;
+        this.volume = super.hitungLuas() * this.tinggiPrisma;
+        return this.volume;
     }
 
+    /**
+     * Menghitung luas permukaan prisma berdasarkan state objek.
+     * L = (2 * Luas Alas) + (Keliling Alas * Tinggi Prisma)
+     */
     public double hitungLuasPermukaan() {
         double luasAlasTrapesium = super.hitungLuas();
         double kelilingAlasTrapesium = super.hitungKeliling();
-        double luasSelubung = kelilingAlasTrapesium * tinggiPrisma;
-        luasPermukaanPrismaTrapesium = (2 * luasAlasTrapesium) + luasSelubung;
-        return luasPermukaanPrismaTrapesium;
+        double luasSelubung = kelilingAlasTrapesium * this.tinggiPrisma;
+        this.luasPermukaan = (2 * luasAlasTrapesium) + luasSelubung;
+        return this.luasPermukaan;
     }
 
-    public double getTinggiPrisma() {
-        return tinggiPrisma;
+    // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
+
+    public double hitungVolume(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlas, double tinggiPrisma) {
+        if (sisiAtasAlas <= 0 || sisiBawahAlas <= 0 || tinggiAlas <= 0 || tinggiPrisma <= 0) {
+            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
+        }
+        double luasAlas = 0.5 * (sisiAtasAlas + sisiBawahAlas) * tinggiAlas;
+        this.volume = luasAlas * tinggiPrisma;
+        return this.volume;
+    }
+
+    public double hitungLuasPermukaan(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlas,
+                                      double sisiKiriAlas, double sisiKananAlas, double tinggiPrisma) {
+        if (sisiAtasAlas <= 0 || sisiBawahAlas <= 0 || tinggiAlas <= 0 || sisiKiriAlas <= 0 || sisiKananAlas <= 0 || tinggiPrisma <= 0) {
+            throw new IllegalArgumentException("Semua dimensi harus positif.");
+        }
+        double luasAlas = 0.5 * (sisiAtasAlas + sisiBawahAlas) * tinggiAlas;
+        double kelilingAlas = sisiAtasAlas + sisiBawahAlas + sisiKiriAlas + sisiKananAlas;
+        double luasSelubung = kelilingAlas * tinggiPrisma;
+        this.luasPermukaan = (2 * luasAlas) + luasSelubung;
+        return this.luasPermukaan;
     }
 }
