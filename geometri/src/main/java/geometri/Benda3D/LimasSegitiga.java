@@ -8,14 +8,14 @@ import geometri.Benda2D.Segitiga;
 public class LimasSegitiga extends Segitiga {
 
     // Dimensi dan hasil kalkulasi dibuat public agar konsisten
-    public double tinggiLimas;
-    public double tinggiSisiTegakA; // Tinggi sisi tegak pada sisiA
-    public double tinggiSisiTegakB; // Tinggi sisi tegak pada sisiB
-    public double tinggiSisiTegakC; // Tinggi sisi tegak pada sisiC
+    private double tinggiLimas;
+    private double tinggiSisiTegakA; // Tinggi sisi tegak pada sisiA
+    private double tinggiSisiTegakB; // Tinggi sisi tegak pada sisiB
+    private double tinggiSisiTegakC; // Tinggi sisi tegak pada sisiC
 
-    public double volume;
-    public double luasSelubung;
-    public double luasPermukaan;
+    private double volume;
+    private double luasSelubung;
+    private double luasPermukaan;
 
     /**
      * Konstruktor lengkap untuk kalkulasi volume dan luas permukaan.
@@ -24,9 +24,6 @@ public class LimasSegitiga extends Segitiga {
                          double sisiB_alas, double sisiC_alas, double tinggiLimas,
                          double tinggiSisiTegakA, double tinggiSisiTegakB, double tinggiSisiTegakC) {
         super(alasSegitigaAlas, tinggiSegitigaAlas, sisiA_alas, sisiB_alas, sisiC_alas);
-        if (tinggiLimas <= 0 || tinggiSisiTegakA <= 0 || tinggiSisiTegakB <= 0 || tinggiSisiTegakC <= 0) {
-            throw new IllegalArgumentException("Tinggi limas dan semua tinggi sisi tegak harus bernilai positif.");
-        }
         this.tinggiLimas = tinggiLimas;
         this.tinggiSisiTegakA = tinggiSisiTegakA;
         this.tinggiSisiTegakB = tinggiSisiTegakB;
@@ -66,9 +63,6 @@ public class LimasSegitiga extends Segitiga {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double alasSegitigaAlas, double tinggiSegitigaAlas, double tinggiLimas) {
-        if (alasSegitigaAlas <= 0 || tinggiSegitigaAlas <= 0 || tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
-        }
         double luasAlas = 0.5 * alasSegitigaAlas * tinggiSegitigaAlas;
         this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
         return this.volume;
@@ -85,5 +79,15 @@ public class LimasSegitiga extends Segitiga {
 
         this.luasPermukaan = luasAlas + luasTegakA + luasTegakB + luasTegakC;
         return this.luasPermukaan;
+    }
+
+    public double getTinggiLimas() {
+        return tinggiLimas;
+    }
+    public double getVolume() {
+        return volume;
+    }
+    public double getLuasPermukaan() {
+        return luasPermukaan;
     }
 }

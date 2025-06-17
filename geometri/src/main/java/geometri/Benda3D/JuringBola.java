@@ -8,11 +8,7 @@ package geometri.Benda3D;
 public class JuringBola extends Bola {
 
     public double tinggiTemberengDasar;
-
-    // Field untuk menyimpan hasil perhitungan jari-jari alas dari tembereng
     protected double jariJariAlasTembereng;
-
-    // Field 'volume' dan 'luasPermukaanBola' diwarisi dari kelas Bola
 
     public JuringBola(double jariJariBola, double tinggiTemberengDasar) {
         super(jariJariBola);
@@ -66,17 +62,11 @@ public class JuringBola extends Bola {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP BOLA) ---
 
     public double hitungVolume(double jariJariBola, double tinggiTemberengDasar) {
-        if (jariJariBola <= 0 || tinggiTemberengDasar <= 0) {
-            throw new IllegalArgumentException("Input untuk volume tidak valid.");
-        }
         this.volume = (2.0 / 3.0) * Math.PI * Math.pow(jariJariBola, 2) * tinggiTemberengDasar;
         return this.volume;
     }
 
     public double hitungLuasPermukaan(double jariJariBola, double tinggiTemberengDasar) {
-        if (jariJariBola <= 0 || tinggiTemberengDasar <= 0) {
-            throw new IllegalArgumentException("Input untuk luas permukaan tidak valid.");
-        }
 
         double luasLengkungTembereng = 2 * Math.PI * jariJariBola * tinggiTemberengDasar;
 

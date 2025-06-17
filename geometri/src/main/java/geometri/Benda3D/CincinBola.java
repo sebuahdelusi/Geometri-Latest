@@ -18,12 +18,6 @@ public class CincinBola extends Bola {
 
     public CincinBola(double jariJariBola, double tinggiCincin, double jariJariAlas1, double jariJariAlas2) {
         super(jariJariBola);
-        if (tinggiCincin <= 0 || jariJariAlas1 < 0 || jariJariAlas2 < 0) {
-            throw new IllegalArgumentException("Tinggi cincin harus positif, dan jari-jari alas tidak boleh negatif.");
-        }
-        if (tinggiCincin > 2 * jariJariBola) {
-            throw new IllegalArgumentException("Tinggi cincin tidak boleh melebihi diameter bola.");
-        }
         this.tinggiCincin = tinggiCincin;
         this.jariJariAlas1 = jariJariAlas1;
         this.jariJariAlas2 = jariJariAlas2;
@@ -66,17 +60,13 @@ public class CincinBola extends Bola {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP BOLA) ---
 
     public double hitungVolume(double tinggiCincin, double jariJariAlas1, double jariJariAlas2) {
-        if (tinggiCincin <= 0 || jariJariAlas1 < 0 || jariJariAlas2 < 0) {
-            throw new IllegalArgumentException("Input untuk volume tidak valid.");
-        }
+
         this.volume = (1.0 / 6.0) * Math.PI * tinggiCincin * (3 * Math.pow(jariJariAlas1, 2) + 3 * Math.pow(jariJariAlas2, 2) + Math.pow(tinggiCincin, 2));
         return this.volume;
     }
 
     public double hitungLuasPermukaan(double jariJariBola, double tinggiCincin, double jariJariAlas1, double jariJariAlas2) {
-        if (jariJariBola <= 0 || tinggiCincin <= 0 || jariJariAlas1 < 0 || jariJariAlas2 < 0) {
-            throw new IllegalArgumentException("Input untuk luas permukaan tidak valid.");
-        }
+
         double luasLengkung = 2 * Math.PI * jariJariBola * tinggiCincin;
         double luasAlas1 = Math.PI * Math.pow(jariJariAlas1, 2);
         double luasAlas2 = Math.PI * Math.pow(jariJariAlas2, 2);

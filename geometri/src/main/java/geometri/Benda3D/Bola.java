@@ -4,8 +4,8 @@ import geometri.Benda2D.Lingkaran;
 
 public class Bola extends Lingkaran {
 
-    protected double volume;
-    protected double luasPermukaanBola;
+    public double volume;
+    public double luasPermukaanBola;
 
     public Bola(double jariJari) {
         super(jariJari);
@@ -17,9 +17,6 @@ public class Bola extends Lingkaran {
     }
 
     public double hitungVolume(double jariJari) {
-        if (jariJari <= 0) {
-            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
-        }
         volume = (4.0 / 3.0) * Math.PI * Math.pow(jariJari, 3);
         return volume;
     }

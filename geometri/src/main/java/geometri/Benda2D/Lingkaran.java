@@ -13,9 +13,6 @@ public class Lingkaran extends AbstractGeometriDasar {
 
     public Lingkaran(double jariJari) {
         super("Lingkaran");
-        if (jariJari <= 0) {
-            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
-        }
         this.jariJari = jariJari;
     }
 
@@ -26,9 +23,6 @@ public class Lingkaran extends AbstractGeometriDasar {
     }
 
     public double hitungLuas(double jariJari) {
-        if (jariJari <= 0) {
-            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
-        }
         luas = Math.PI * jariJari * jariJari; //
         return luas;
     }
@@ -40,9 +34,6 @@ public class Lingkaran extends AbstractGeometriDasar {
     }
 
     public double hitungKeliling(double jariJari) {
-        if (jariJari <= 0) {
-            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
-        }
         keliling = 2 * Math.PI * jariJari; //
         return keliling;
     }

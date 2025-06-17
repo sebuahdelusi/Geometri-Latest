@@ -7,8 +7,8 @@ package geometri.Benda3D;
 public class KerucutTerpancung extends Kerucut {
 
     // Dimensi spesifik frustum, dibuat public agar konsisten
-    public double jariJariAtas;
-    public double tinggiFrustum;
+    private double jariJariAtas;
+    private double tinggiFrustum;
 
     // Field 'garisPelukisKerucut', 'volume', dan 'luasPermukaanKerucut'
     // sudah diwarisi (inherited) dari kelas Kerucut.
@@ -18,13 +18,6 @@ public class KerucutTerpancung extends Kerucut {
         // dengan nilai 'tinggiFrustum', yang tidak digunakan di kelas ini.
         // Ini adalah konsekuensi dari struktur pewarisan yang ada.
         super(jariJariBawah, tinggiFrustum);
-
-        if (jariJariAtas <= 0 || tinggiFrustum <= 0) {
-            throw new IllegalArgumentException("Jari-jari atas dan tinggi frustum harus bernilai positif.");
-        }
-        if (jariJariAtas >= jariJariBawah) {
-            throw new IllegalArgumentException("Jari-jari atas harus lebih kecil dari jari-jari bawah.");
-        }
         this.jariJariAtas = jariJariAtas;
         this.tinggiFrustum = tinggiFrustum;
     }
@@ -78,17 +71,11 @@ public class KerucutTerpancung extends Kerucut {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
-        if (jariJariBawah <= 0 || jariJariAtas <= 0 || tinggiFrustum <= 0 || jariJariAtas >= jariJariBawah) {
-            throw new IllegalArgumentException("Parameter untuk volume tidak valid.");
-        }
         this.volume = (1.0 / 3.0) * Math.PI * tinggiFrustum * (Math.pow(jariJariBawah, 2) + jariJariBawah * jariJariAtas + Math.pow(jariJariAtas, 2));
         return this.volume;
     }
 
     public double hitungLuasPermukaan(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
-        if (jariJariBawah <= 0 || jariJariAtas <= 0 || tinggiFrustum <= 0 || jariJariAtas >= jariJariBawah) {
-            throw new IllegalArgumentException("Parameter untuk luas permukaan tidak valid.");
-        }
         double luasAlasBawah = Math.PI * jariJariBawah * jariJariBawah;
         double luasAlasAtas = Math.PI * jariJariAtas * jariJariAtas;
 

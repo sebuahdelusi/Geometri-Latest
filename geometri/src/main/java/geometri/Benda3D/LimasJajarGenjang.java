@@ -8,13 +8,13 @@ import geometri.Benda2D.JajarGenjang;
 public class LimasJajarGenjang extends JajarGenjang {
 
     // Dimensi dan hasil kalkulasi dibuat public agar konsisten
-    public double tinggiLimas;
-    public double tinggiSisiTegakAlas;     // Tinggi sisi tegak pada alas
-    public double tinggiSisiTegakMiring;  // Tinggi sisi tegak pada sisi miring
+    private double tinggiLimas;
+    private double tinggiSisiTegakAlas;     // Tinggi sisi tegak pada alas
+    private double tinggiSisiTegakMiring;  // Tinggi sisi tegak pada sisi miring
 
-    public double volume;
-    public double luasSelubung;
-    public double luasPermukaan;
+    private double volume;
+    private double luasSelubung;
+    private double luasPermukaan;
 
     /**
      * Konstruktor lengkap untuk kalkulasi volume dan luas permukaan.
@@ -62,9 +62,6 @@ public class LimasJajarGenjang extends JajarGenjang {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double alasAlas, double tinggiAlas, double tinggiLimas) {
-        if (alasAlas <= 0 || tinggiAlas <= 0 || tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
-        }
         double luasAlas = alasAlas * tinggiAlas;
         this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
         return this.volume;
@@ -72,14 +69,21 @@ public class LimasJajarGenjang extends JajarGenjang {
 
     public double hitungLuasPermukaan(double alasAlas, double tinggiAlas, double sisiMiringAlas,
                                       double tinggiSisiTegakAlas, double tinggiSisiTegakMiring) {
-        if (alasAlas <= 0 || tinggiAlas <= 0 || sisiMiringAlas <= 0 || tinggiSisiTegakAlas <= 0 || tinggiSisiTegakMiring <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk luas permukaan harus positif.");
-        }
         double luasAlas = alasAlas * tinggiAlas;
         double luasTegakPadaAlas = alasAlas * tinggiSisiTegakAlas; // 2 * (0.5 * alas * tsAlas)
         double luasTegakPadaSisiMiring = sisiMiringAlas * tinggiSisiTegakMiring; // 2 * (0.5 * sisiMiring * tsSisiMiring)
 
         this.luasPermukaan = luasAlas + luasTegakPadaAlas + luasTegakPadaSisiMiring;
         return this.luasPermukaan;
+    }
+
+    public double getTinggiLimas() {
+        return tinggiLimas;
+    }
+    public double getVolume() {
+        return volume;
+    }
+    public double getLuasPermukaan(){
+        return luasPermukaan;
     }
 }

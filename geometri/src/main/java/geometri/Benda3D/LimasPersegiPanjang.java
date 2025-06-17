@@ -18,9 +18,6 @@ public class LimasPersegiPanjang extends PersegiPanjang {
 
     public LimasPersegiPanjang(double panjangAlas, double lebarAlas, double tinggiLimas) {
         super(panjangAlas, lebarAlas);
-        if (tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Tinggi limas harus bernilai positif.");
-        }
         this.tinggiLimas = tinggiLimas;
     }
 
@@ -62,18 +59,12 @@ public class LimasPersegiPanjang extends PersegiPanjang {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double panjangAlas, double lebarAlas, double tinggiLimas) {
-        if (panjangAlas <= 0 || lebarAlas <= 0 || tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
-        }
         double luasAlas = panjangAlas * lebarAlas;
         this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
         return this.volume;
     }
 
     public double hitungLuasPermukaan(double panjangAlas, double lebarAlas, double tinggiLimas) {
-        if (panjangAlas <= 0 || lebarAlas <= 0 || tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk luas permukaan harus positif.");
-        }
         double luasAlas = panjangAlas * lebarAlas;
 
         // Hitung luas selubung
@@ -85,5 +76,12 @@ public class LimasPersegiPanjang extends PersegiPanjang {
 
         this.luasPermukaan = luasAlas + luasSelubungLimas;
         return this.luasPermukaan;
+    }
+
+    public double getTinggiLimas() {
+        return tinggiLimas;
+    }
+    public double getVolume() {
+        return volume;
     }
 }

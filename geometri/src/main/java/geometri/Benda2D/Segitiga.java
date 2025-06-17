@@ -14,12 +14,6 @@ public class Segitiga extends AbstractGeometriDasar {
 
     public Segitiga(double alas, double tinggi, double sisiA, double sisiB, double sisiC) {
         super("Segitiga");
-        if (alas <= 0 || tinggi <= 0 || sisiA <= 0 || sisiB <= 0 || sisiC <= 0) {
-            throw new IllegalArgumentException("Semua dimensi segitiga (alas, tinggi, sisi) harus bernilai positif.");
-        }
-        if (sisiA + sisiB <= sisiC || sisiA + sisiC <= sisiB || sisiB + sisiC <= sisiA) {
-            throw new IllegalArgumentException("Dimensi sisi-sisi tidak membentuk segitiga yang valid.");
-        }
         this.alasUntukLuas = alas; // 'this' diperlukan
         this.tinggiUntukLuas = tinggi; // 'this' diperlukan
         this.sisiA = sisiA; // 'this' diperlukan
@@ -34,9 +28,6 @@ public class Segitiga extends AbstractGeometriDasar {
     }
 
     public double hitungLuas(double alas, double tinggi) {
-        if (alas <= 0 || tinggi <= 0) {
-            throw new IllegalArgumentException("Alas dan tinggi harus bernilai positif.");
-        }
         luas = 0.5 * alas * tinggi;
         return luas;
     }
@@ -48,12 +39,6 @@ public class Segitiga extends AbstractGeometriDasar {
     }
 
     public double hitungKeliling(double sisiA, double sisiB, double sisiC) {
-        if (sisiA <= 0 || sisiB <= 0 || sisiC <= 0) {
-            throw new IllegalArgumentException("Sisi A, B, dan C harus bernilai positif.");
-        }
-        if (sisiA + sisiB <= sisiC || sisiA + sisiC <= sisiB || sisiB + sisiC <= sisiA) {
-            throw new IllegalArgumentException("Dimensi sisi-sisi tidak membentuk segitiga yang valid.");
-        }
         keliling = sisiA + sisiB + sisiC;
         return keliling;
     }

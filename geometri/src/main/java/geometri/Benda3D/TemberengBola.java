@@ -7,19 +7,14 @@ package geometri.Benda3D;
 public class TemberengBola extends Bola {
 
     // Dimensi dibuat public agar konsisten dengan superclass
-    public double tinggiTembereng;
-
+    private double tinggiTembereng;
+    private double volume; // Volume tembereng bola
     // Field untuk menyimpan hasil perhitungan perantara
-    protected double jariJariAlas;
-    protected double luasPermukaanLengkung;
-
-    // Field 'volume' dan 'luasPermukaanBola' diwarisi dari kelas Bola
+    private double jariJariAlas;
+    private double luasPermukaanLengkung;
 
     public TemberengBola(double jariJariBola, double tinggiTembereng) {
         super(jariJariBola);
-        if (tinggiTembereng <= 0 || tinggiTembereng > (2 * jariJariBola) ) {
-            throw new IllegalArgumentException("Tinggi tembereng harus positif dan tidak melebihi diameter bola.");
-        }
         this.tinggiTembereng = tinggiTembereng;
     }
 
@@ -40,16 +35,16 @@ public class TemberengBola extends Bola {
     @Override
     public double hitungVolume() {
         // Menggunakan field 'volume' yang diwarisi
-        this.volume = (1.0 / 3.0) * Math.PI * Math.pow(this.tinggiTembereng, 2) * (3 * this.jariJari - this.tinggiTembereng);
-        return this.volume;
+        volume = (1.0 / 3.0) * Math.PI * Math.pow(tinggiTembereng, 2) * (3 * jariJariAlas - tinggiTembereng);
+        return volume;
     }
 
     /**
      * Menghitung luas permukaan lengkung (selimut) tembereng berdasarkan state objek.
      */
     public double hitungLuasPermukaanLengkung() {
-        this.luasPermukaanLengkung = 2 * Math.PI * this.jariJari * this.tinggiTembereng;
-        return this.luasPermukaanLengkung;
+        luasPermukaanLengkung = 2 * Math.PI * jariJariAlas * tinggiTembereng;
+        return luasPermukaanLengkung;
     }
 
     /**
@@ -62,31 +57,25 @@ public class TemberengBola extends Bola {
 
         double luasAlasTembereng = 0;
         // Tembereng adalah bola utuh jika tingginya sama dengan diameter
-        if (this.tinggiTembereng < (2 * this.jariJari)) {
+        if (tinggiTembereng < (2 * jariJariAlas)) {
             // Memanggil metode hitung untuk mendapatkan jari-jari alas
             double rAlas = this.hitungJariJariAlas();
             luasAlasTembereng = Math.PI * Math.pow(rAlas, 2);
         }
 
         // Menggunakan field 'luasPermukaanBola' yang diwarisi
-        this.luasPermukaanBola = luasLengkung + luasAlasTembereng;
-        return this.luasPermukaanBola;
+        luasPermukaanBola = luasLengkung + luasAlasTembereng;
+        return luasPermukaanBola;
     }
 
     // --- METODE OVERLOAD BARU (SESUAI KONSEP BOLA) ---
 
     public double hitungVolume(double jariJariBola, double tinggiTembereng) {
-        if (jariJariBola <= 0 || tinggiTembereng <= 0 || tinggiTembereng > (2 * jariJariBola)) {
-            throw new IllegalArgumentException("Dimensi untuk volume tidak valid.");
-        }
         this.volume = (1.0 / 3.0) * Math.PI * Math.pow(tinggiTembereng, 2) * (3 * jariJariBola - tinggiTembereng);
         return this.volume;
     }
 
     public double hitungLuasPermukaan(double jariJariBola, double tinggiTembereng) {
-        if (jariJariBola <= 0 || tinggiTembereng <= 0 || tinggiTembereng > (2 * jariJariBola)) {
-            throw new IllegalArgumentException("Dimensi untuk luas permukaan tidak valid.");
-        }
         double luasLengkung = 2 * Math.PI * jariJariBola * tinggiTembereng;
 
         double luasAlasTembereng = 0;
@@ -98,4 +87,12 @@ public class TemberengBola extends Bola {
         this.luasPermukaanBola = luasLengkung + luasAlasTembereng;
         return this.luasPermukaanBola;
     }
+
+    public double getTinggiTembereng() {
+        return this.tinggiTembereng;
+    }
+    public double getVolume() {
+        return volume;
+    }
+
 }

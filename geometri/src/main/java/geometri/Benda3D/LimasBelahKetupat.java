@@ -19,9 +19,6 @@ public class LimasBelahKetupat extends BelahKetupat {
 
     public LimasBelahKetupat(double diagonal1Alas, double diagonal2Alas, double sisiAlas, double tinggiLimas) {
         super(diagonal1Alas, diagonal2Alas, sisiAlas);
-        if (tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Tinggi limas harus bernilai positif.");
-        }
         this.tinggiLimas = tinggiLimas;
     }
 
@@ -71,18 +68,12 @@ public class LimasBelahKetupat extends BelahKetupat {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double diagonal1Alas, double diagonal2Alas, double tinggiLimas) {
-        if (diagonal1Alas <= 0 || diagonal2Alas <= 0 || tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
-        }
         double luasAlas = (diagonal1Alas * diagonal2Alas) / 2.0;
         this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
         return this.volume;
     }
 
     public double hitungLuasPermukaan(double diagonal1Alas, double diagonal2Alas, double sisiAlas, double tinggiLimas) {
-        if (diagonal1Alas <= 0 || diagonal2Alas <= 0 || sisiAlas <= 0 || tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk luas permukaan harus positif.");
-        }
         // Hitung luas alas
         double luasAlas = (diagonal1Alas * diagonal2Alas) / 2.0;
 

@@ -25,9 +25,6 @@ public class PersegiPanjang extends AbstractGeometriDasar {
     }
 
     public double hitungLuas(double panjang, double lebar) {
-        if (panjang <= 0 || lebar <= 0) {
-            throw new IllegalArgumentException("Panjang dan lebar harus bernilai positif.");
-        }
         luas = panjang * lebar;
         return luas;
     }
@@ -39,9 +36,6 @@ public class PersegiPanjang extends AbstractGeometriDasar {
     }
 
     public double hitungKeliling(double panjang, double lebar) {
-        if (panjang <= 0 || lebar <= 0) {
-            throw new IllegalArgumentException("Panjang dan lebar harus bernilai positif.");
-        }
         keliling = 2 * (panjang + lebar);
         return keliling;
     }

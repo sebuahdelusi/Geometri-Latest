@@ -13,9 +13,6 @@ public class LayangLayang extends AbstractGeometriDasar {
 
     public LayangLayang(double diagonal1, double diagonal2, double sisiPendek, double sisiPanjang) {
         super("Layang-Layang");
-        if (diagonal1 <= 0 || diagonal2 <= 0 || sisiPendek <= 0 || sisiPanjang <= 0) {
-            throw new IllegalArgumentException("Diagonal dan sisi harus bernilai positif.");
-        }
         this.diagonal1 = diagonal1;     // 'this' diperlukan
         this.diagonal2 = diagonal2;     // 'this' diperlukan
         this.sisiPendek = sisiPendek;   // 'this' diperlukan
@@ -29,9 +26,6 @@ public class LayangLayang extends AbstractGeometriDasar {
     }
 
     public double hitungLuas(double diagonal1, double diagonal2) {
-        if (diagonal1 <= 0 || diagonal2 <= 0) {
-            throw new IllegalArgumentException("Diagonal harus bernilai positif.");
-        }
         luas = 0.5 * diagonal1 * diagonal2;
         return luas;
     }
@@ -43,9 +37,6 @@ public class LayangLayang extends AbstractGeometriDasar {
     }
 
     public double hitungKeliling(double sisiPendek, double sisiPanjang) {
-        if (sisiPendek <= 0 || sisiPanjang <= 0) {
-            throw new IllegalArgumentException("Sisi pendek dan panjang harus bernilai positif.");
-        }
         keliling = 2 * (sisiPendek + sisiPanjang);
         return keliling;
     }

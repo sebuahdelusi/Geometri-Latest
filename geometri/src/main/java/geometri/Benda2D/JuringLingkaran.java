@@ -6,9 +6,6 @@ public class JuringLingkaran extends Lingkaran {
 
     public JuringLingkaran(double jariJari) {
         super(jariJari);
-        if (sudutBusurDerajat <= 0 || sudutBusurDerajat > 360) {
-            throw new IllegalArgumentException("Sudut busur harus antara 0 (eksklusif) dan 360 (inklusif) derajat.");
-        }
         this.sudutBusurDerajat = sudutBusurDerajat; // 'this' diperlukan
     }
 
@@ -21,9 +18,6 @@ public class JuringLingkaran extends Lingkaran {
     }
 
     public double hitungLuas(double sudutBusurDerajat) {
-        if (sudutBusurDerajat <= 0 || sudutBusurDerajat > 360) {
-            throw new IllegalArgumentException("Sudut busur harus antara 0 (eksklusif) dan 360 (inklusif) derajat.");
-        }
         // Menggunakan super.jariJari (atau cukup jariJari karena protected)
         luas = (sudutBusurDerajat / 360.0) * (Math.PI * jariJari * jariJari);
         return luas;
@@ -38,9 +32,6 @@ public class JuringLingkaran extends Lingkaran {
     }
 
     public double hitungKeliling(double sudutBusurDerajat) {
-        if (sudutBusurDerajat <= 0 || sudutBusurDerajat > 360) {
-            throw new IllegalArgumentException("Sudut busur harus antara 0 (eksklusif) dan 360 (inklusif) derajat.");
-        }
         double panjangBusur = (sudutBusurDerajat / 360.0) * (2 * Math.PI * jariJari);
         keliling = panjangBusur + (2 * jariJari);
         return keliling;

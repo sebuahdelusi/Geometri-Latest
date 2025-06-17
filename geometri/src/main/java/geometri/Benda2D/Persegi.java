@@ -10,9 +10,6 @@ public class Persegi extends AbstractGeometriDasar {
 
     public Persegi(double sisi) {
         super("Persegi");
-        if (sisi <= 0) {
-            throw new IllegalArgumentException("Sisi harus bernilai positif.");
-        }
         this.sisi = sisi; // 'this' diperlukan di sini karena parameter sama dengan nama field
     }
 
@@ -23,9 +20,6 @@ public class Persegi extends AbstractGeometriDasar {
     }
 
     public double hitungLuas(double sisi) {
-        if (sisi <= 0) {
-            throw new IllegalArgumentException("Sisi harus bernilai positif.");
-        }
         luas = sisi * sisi;
         return luas;
     }
@@ -37,9 +31,6 @@ public class Persegi extends AbstractGeometriDasar {
     }
 
     public double hitungKeliling(double sisi) {
-        if (sisi <= 0) {
-            throw new IllegalArgumentException("Sisi harus bernilai positif.");
-        }
         keliling = 4 * sisi;
         return keliling;
     }

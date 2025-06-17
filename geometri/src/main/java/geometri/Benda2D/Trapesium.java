@@ -14,9 +14,6 @@ public class Trapesium extends AbstractGeometriDasar {
 
     public Trapesium(double sisiAtas, double sisiBawah, double tinggi, double sisiKiri, double sisiKanan) {
         super("Trapesium");
-        if (sisiAtas <= 0 || sisiBawah <= 0 || tinggi <= 0 || sisiKiri <= 0 || sisiKanan <= 0) {
-            throw new IllegalArgumentException("Semua dimensi trapesium harus bernilai positif.");
-        }
         this.sisiAtas = sisiAtas;     // 'this' diperlukan
         this.sisiBawah = sisiBawah;   // 'this' diperlukan
         this.tinggi = tinggi;         // 'this' diperlukan
@@ -45,9 +42,6 @@ public class Trapesium extends AbstractGeometriDasar {
     }
 
     public double hitungKeliling(double sisiAtas, double sisiBawah, double sisiKiri, double sisiKanan) {
-        if (sisiAtas <= 0 || sisiBawah <= 0 || sisiKiri <= 0 || sisiKanan <= 0) {
-            throw new IllegalArgumentException("Sisi atas, bawah, kiri, dan kanan harus bernilai positif.");
-        }
         keliling = sisiAtas + sisiBawah + sisiKiri + sisiKanan;
         return keliling;
     }

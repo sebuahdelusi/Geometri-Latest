@@ -8,17 +8,14 @@ import geometri.Benda2D.Segitiga;
 public class PrismaSegitiga extends Segitiga {
 
     // Dimensi dan hasil kalkulasi dibuat public agar konsisten
-    public double tinggiPrisma;
-    public double volume;
-    public double luasPermukaan;
+    private double tinggiPrisma;
+    private double volume;
+    private double luasPermukaan;
 
     public PrismaSegitiga(double alasSegitiga, double tinggiSegitigaAlas,
                           double sisiA_alas, double sisiB_alas, double sisiC_alas,
                           double tinggiPrisma) {
         super(alasSegitiga, tinggiSegitigaAlas, sisiA_alas, sisiB_alas, sisiC_alas);
-        if (tinggiPrisma <= 0) {
-            throw new IllegalArgumentException("Tinggi prisma harus bernilai positif.");
-        }
         this.tinggiPrisma = tinggiPrisma;
     }
 
@@ -46,9 +43,6 @@ public class PrismaSegitiga extends Segitiga {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double alasAlas, double tinggiAlas, double tinggiPrisma) {
-        if (alasAlas <= 0 || tinggiAlas <= 0 || tinggiPrisma <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
-        }
         double luasAlas = 0.5 * alasAlas * tinggiAlas;
         this.volume = luasAlas * tinggiPrisma;
         return this.volume;
@@ -56,13 +50,20 @@ public class PrismaSegitiga extends Segitiga {
 
     public double hitungLuasPermukaan(double alasAlas, double tinggiAlas, double sisiA,
                                       double sisiB, double sisiC, double tinggiPrisma) {
-        if (alasAlas <= 0 || tinggiAlas <= 0 || sisiA <= 0 || sisiB <= 0 || sisiC <= 0 || tinggiPrisma <= 0) {
-            throw new IllegalArgumentException("Semua dimensi harus positif.");
-        }
         double luasAlas = 0.5 * alasAlas * tinggiAlas;
         double kelilingAlas = sisiA + sisiB + sisiC;
         double luasSelubung = kelilingAlas * tinggiPrisma;
         this.luasPermukaan = (2 * luasAlas) + luasSelubung;
         return this.luasPermukaan;
+    }
+
+    public double getTinggiPrisma() {
+        return tinggiPrisma;
+    }
+    public double getVolume() {
+        return volume;
+    }
+    public double getLuasPermukaan() {
+        return luasPermukaan;
     }
 }

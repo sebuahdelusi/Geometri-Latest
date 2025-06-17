@@ -8,15 +8,15 @@ import geometri.Benda2D.Trapesium;
 public class LimasTrapesium extends Trapesium {
 
     // Dimensi dan hasil kalkulasi dibuat public agar konsisten
-    public double tinggiLimas;
-    public double tinggiSisiTegakAtas;
-    public double tinggiSisiTegakBawah;
-    public double tinggiSisiTegakKiri;
-    public double tinggiSisiTegakKanan;
+    private double tinggiLimas;
+    private double tinggiSisiTegakAtas;
+    private double tinggiSisiTegakBawah;
+    private double tinggiSisiTegakKiri;
+    private double tinggiSisiTegakKanan;
 
-    public double volume;
-    public double luasSelubung;
-    public double luasPermukaan;
+    private double volume;
+    private double luasSelubung;
+    private double luasPermukaan;
 
     /**
      * Konstruktor lengkap untuk kalkulasi volume dan luas permukaan.
@@ -25,9 +25,6 @@ public class LimasTrapesium extends Trapesium {
                           double sisiKiriAlas, double sisiKananAlas, double tinggiLimas,
                           double tsAtas, double tsBawah, double tsKiri, double tsKanan) {
         super(sisiAtasAlas, sisiBawahAlas, tinggiAlas, sisiKiriAlas, sisiKananAlas);
-        if (tinggiLimas <= 0 || tsAtas <= 0 || tsBawah <= 0 || tsKiri <= 0 || tsKanan <= 0) {
-            throw new IllegalArgumentException("Tinggi limas dan semua tinggi sisi tegak harus bernilai positif.");
-        }
         this.tinggiLimas = tinggiLimas;
         this.tinggiSisiTegakAtas = tsAtas;
         this.tinggiSisiTegakBawah = tsBawah;
@@ -69,9 +66,6 @@ public class LimasTrapesium extends Trapesium {
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlas, double tinggiLimas) {
-        if (sisiAtasAlas <= 0 || sisiBawahAlas <= 0 || tinggiAlas <= 0 || tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
-        }
         double luasAlas = 0.5 * (sisiAtasAlas + sisiBawahAlas) * tinggiAlas;
         this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
         return this.volume;
@@ -89,5 +83,15 @@ public class LimasTrapesium extends Trapesium {
 
         this.luasPermukaan = luasAlas + luasTegakAtas + luasTegakBawah + luasTegakKiri + luasTegakKanan;
         return this.luasPermukaan;
+    }
+
+    public double getTinggiLimas() {
+        return tinggiLimas;
+    }
+    public double getVolume() {
+        return volume;
+    }
+    public double getLuasPermukaan() {
+        return luasPermukaan;
     }
 }

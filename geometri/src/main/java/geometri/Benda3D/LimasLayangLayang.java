@@ -8,13 +8,13 @@ import geometri.Benda2D.LayangLayang;
 public class LimasLayangLayang extends LayangLayang {
 
     // Dimensi dan hasil kalkulasi dibuat public agar konsisten
-    public double tinggiLimas;
-    public double tinggiSisiTegakPendek;  // Tinggi sisi tegak pada sisi pendek
-    public double tinggiSisiTegakPanjang; // Tinggi sisi tegak pada sisi panjang
+    private double tinggiLimas;
+    private double tinggiSisiTegakPendek;  // Tinggi sisi tegak pada sisi pendek
+    private double tinggiSisiTegakPanjang; // Tinggi sisi tegak pada sisi panjang
 
-    public double volume;
-    public double luasSelubung;
-    public double luasPermukaan;
+    private double volume;
+    private double luasSelubung;
+    private double luasPermukaan;
 
     /**
      * Konstruktor lengkap untuk kalkulasi volume dan luas permukaan.
@@ -46,7 +46,7 @@ public class LimasLayangLayang extends LayangLayang {
         // Menggunakan field public secara langsung
         double luasTegakPendek = 2 * (0.5 * this.sisiPendek * this.tinggiSisiTegakPendek);
         double luasTegakPanjang = 2 * (0.5 * this.sisiPanjang * this.tinggiSisiTegakPanjang);
-        this.luasSelubung = luasTegakPendek + luasTegakPanjang;
+        luasSelubung = luasTegakPendek + luasTegakPanjang;
         return this.luasSelubung;
     }
 
@@ -54,20 +54,18 @@ public class LimasLayangLayang extends LayangLayang {
      * Menghitung luas permukaan total limas berdasarkan state objek.
      * L = Luas Alas + Luas Selubung
      */
-    @Override
+
     public double hitungLuasPermukaan() {
         double luasAlasLimas = super.hitungLuas();
         double luasSelubungLimas = this.hitungLuasSelubung();
-        this.luasPermukaan = luasAlasLimas + luasSelubungLimas;
+        luasPermukaan = luasAlasLimas + luasSelubungLimas;
         return this.luasPermukaan;
     }
 
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double diagonal1Alas, double diagonal2Alas, double tinggiLimas) {
-        if (diagonal1Alas <= 0 || diagonal2Alas <= 0 || tinggiLimas <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk volume harus positif.");
-        }
+
         double luasAlas = 0.5 * diagonal1Alas * diagonal2Alas;
         this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
         return this.volume;
@@ -85,4 +83,16 @@ public class LimasLayangLayang extends LayangLayang {
         this.luasPermukaan = luasAlas + luasTegakPendek + luasTegakPanjang;
         return this.luasPermukaan;
     }
+
+    public double getTinggiLimas() {
+        return tinggiLimas;
+    }
+    public double getVolume(){
+        return volume;
+    }
+    public double getLuasPermukaan(){
+
+        return luasPermukaan;
+    }
+
 }
