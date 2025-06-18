@@ -6,7 +6,7 @@ package geometri;
  * Semua bangun datar konkret akan mewarisi dari kelas ini.
  */
 public abstract class AbstractGeometriDasar implements BangunGeometri {
-    protected String namaBangun;
+    public String namaBangun;
     public AbstractGeometriDasar(String namaBangun) {
         this.namaBangun = namaBangun;
     }

@@ -1,6 +1,7 @@
 package geometri.Benda2D;
 
 import geometri.AbstractGeometriDasar;
+import geometri.TolakNilaiException;
 
 public class Persegi extends AbstractGeometriDasar {
 
@@ -8,38 +9,43 @@ public class Persegi extends AbstractGeometriDasar {
     public double luas;
     public double keliling;
 
-    public Persegi(double sisi) throws IllegalArgumentException {
+    public Persegi(double sisi) {
         super("Persegi");
-        if (sisi <= 0) {
-            throw new IllegalArgumentException("Sisi harus lebih besar dari nol.");
-        }
-
         this.sisi = sisi; // 'this' diperlukan di sini karena parameter sama dengan nama field
     }
 
     @Override
-    public double hitungLuas() {
+    public double hitungLuas() throws TolakNilaiException {
+        if (sisi <= 0) {
+            throw new TolakNilaiException("Sisi harus bernilai positif.");
+        }
         luas = sisi * sisi;
         return luas;
     }
 
-    public double hitungLuas(double sisi) {
+    public double hitungLuas(double sisi) throws TolakNilaiException {
+        if (sisi <= 0) {
+            throw new TolakNilaiException("Sisi harus bernilai positif.");
+        }
         luas = sisi * sisi;
         return luas;
     }
 
     @Override
-    public double hitungKeliling() {
+    public double hitungKeliling() throws TolakNilaiException {
+        if (sisi <= 0) {
+            throw new TolakNilaiException("Sisi harus bernilai positif.");
+        }
         keliling = 4 * sisi;
         return keliling;
     }
 
-    public double hitungKeliling(double sisi) {
+    public double hitungKeliling(double sisi) throws TolakNilaiException {
+        if (sisi <= 0) {
+            throw new TolakNilaiException("Sisi harus bernilai positif.");
+        }
         keliling = 4 * sisi;
         return keliling;
     }
 
-    public double getSisi() {
-        return sisi;
-    }
 }

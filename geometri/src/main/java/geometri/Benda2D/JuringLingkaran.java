@@ -1,26 +1,31 @@
 package geometri.Benda2D;
 
+import geometri.TolakNilaiException;
+
 public class JuringLingkaran extends Lingkaran {
 
     public double sudutBusurDerajat; // Dimensi spesifik juring
 
-    public JuringLingkaran(double jariJari, double sudutBusurDerajat) throws IllegalArgumentException {
+    public JuringLingkaran(double jariJari){
         super(jariJari);
-        if (jariJari <= 0 || sudutBusurDerajat <= 0 || sudutBusurDerajat >= 360) {
-            throw new IllegalArgumentException("Jari-jari harus lebih besar dari nol dan sudut busur harus antara 0 dan 360 derajat.");
-        }
         this.sudutBusurDerajat = sudutBusurDerajat; // 'this' diperlukan
     }
 
     @Override
-    public double hitungLuas() {
+    public double hitungLuas() throws TolakNilaiException {
         // Menggunakan super.jariJari (atau cukup jariJari karena protected)
         // Menyimpan hasil ke field 'luas' yang diwarisi dari Lingkaran, tapi dengan nilai Juring
+        if (sudutBusurDerajat <= 0 || sudutBusurDerajat > 360) {
+            throw new TolakNilaiException("Sudut busur harus bernilai positif dan tidak lebih dari 360 derajat.");
+        }
         luas = (sudutBusurDerajat / 360.0) * (Math.PI * jariJari * jariJari);
         return luas;
     }
 
-    public double hitungLuas(double sudutBusurDerajat) {
+    public double hitungLuas(double sudutBusurDerajat) throws TolakNilaiException {
+        if (sudutBusurDerajat <= 0 || sudutBusurDerajat > 360) {
+            throw new TolakNilaiException("Sudut busur harus bernilai positif dan tidak lebih dari 360 derajat.");
+        }
         // Menggunakan super.jariJari (atau cukup jariJari karena protected)
         luas = (sudutBusurDerajat / 360.0) * (Math.PI * jariJari * jariJari);
         return luas;
