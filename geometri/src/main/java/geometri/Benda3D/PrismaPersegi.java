@@ -18,12 +18,12 @@ public class PrismaPersegi extends Persegi {
     public double hitungVolume() {
         // super.hitungLuas() akan menghitung dan menyimpan luas alas di objek Persegi
         // dan mengembalikannya
-        volume = Math.pow(super.hitungLuas(), 2);
+        volume = super.hitungLuas() * super.sisi; // Menggunakan sisi sebagai tinggi prisma
         return volume;
     }
 
-    public double hitungVolume(double sisiPersegi, double tinggiPrisma) {
-        volume = super.hitungLuas(sisiPersegi) * tinggiPrisma;
+    public double hitungVolume(double sisiPersegi) {
+        volume = super.hitungLuas(sisiPersegi) * sisiPersegi;
         return volume;
     }
 
