@@ -1,6 +1,7 @@
 package geometri.Benda3D;
 
 import geometri.Benda2D.Lingkaran;
+import geometri.TolakNilaiException;
 
 public class Tabung extends Lingkaran {
 
@@ -8,25 +9,31 @@ public class Tabung extends Lingkaran {
     protected double volume;
     protected double luasPermukaanTabung;
 
-    public Tabung(double jariJari, double tinggi) throws IllegalArgumentException {
+    public Tabung(double jariJari, double tinggi) {
         super(jariJari);
-        if (jariJari <= 0 || tinggi <= 0) {
-            throw new IllegalArgumentException("Jari-jari dan tinggi harus lebih besar dari nol.");
-        }
         this.tinggi = tinggi;
     }
 
-    public double hitungVolume() {
+    public double hitungVolume() throws TolakNilaiException {
+        if (super.jariJari <= 0 || tinggi <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi harus bernilai positif.");
+        }
         volume = super.hitungLuas() * tinggi;
         return volume;
     }
 
-    public double hitungVolume(double jariJari, double tinggi) {
+    public double hitungVolume(double jariJari, double tinggi) throws TolakNilaiException {
+        if (jariJari <= 0 || tinggi <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi harus bernilai positif.");
+        }
         volume = super.hitungLuas(jariJari) * tinggi;
         return volume;
     }
 
-    public double hitungLuasPermukaan() {
+    public double hitungLuasPermukaan() throws TolakNilaiException {
+        if (super.jariJari <= 0 || tinggi <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi harus bernilai positif.");
+        }
         double luasAlasTabung = super.hitungLuas();
         double kelilingAlasTabung = super.hitungKeliling();
         double luasSelimut = kelilingAlasTabung * tinggi;
@@ -34,7 +41,10 @@ public class Tabung extends Lingkaran {
         return luasPermukaanTabung;
     }
 
-    public double hitungLuasPermukaan(double jariJari, double tinggi) {
+    public double hitungLuasPermukaan(double jariJari, double tinggi) throws TolakNilaiException {
+        if (jariJari <= 0 || tinggi <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi harus bernilai positif.");
+        }
         double luasAlasTabung = super.hitungLuas(jariJari);
         double kelilingAlasTabung = super.hitungKeliling(jariJari);
         double luasSelimut = kelilingAlasTabung * tinggi;

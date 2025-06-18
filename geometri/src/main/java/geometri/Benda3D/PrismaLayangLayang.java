@@ -1,6 +1,7 @@
 package geometri.Benda3D;
 
 import geometri.Benda2D.LayangLayang;
+import geometri.TolakNilaiException;
 
 public class PrismaLayangLayang extends LayangLayang {
 
@@ -10,20 +11,23 @@ public class PrismaLayangLayang extends LayangLayang {
     private double luasPermukaan;
 
     public PrismaLayangLayang(double diagonal1Alas, double diagonal2Alas, double sisiPendekAlas,
-                              double sisiPanjangAlas, double tinggiPrisma) throws IllegalArgumentException {
+                              double sisiPanjangAlas, double tinggiPrisma) {
         super(diagonal1Alas, diagonal2Alas, sisiPendekAlas, sisiPanjangAlas);
-        if (tinggiPrisma <= 0 || diagonal1Alas <= 0 || diagonal2Alas <= 0 || sisiPendekAlas <= 0 || sisiPanjangAlas <= 0) {
-            throw new IllegalArgumentException("Tinggi prisma harus bernilai positif.");
-        }
         this.tinggiPrisma = tinggiPrisma;
     }
 
-    public double hitungVolume() {
+    public double hitungVolume() throws TolakNilaiException {
+        if (this.tinggiPrisma <= 0) {
+            throw new TolakNilaiException("Tinggi prisma harus bernilai positif.");
+        }
         this.volume = super.hitungLuas() * this.tinggiPrisma;
         return this.volume;
     }
 
-    public double hitungLuasPermukaan() {
+    public double hitungLuasPermukaan() throws TolakNilaiException {
+        if (this.tinggiPrisma <= 0) {
+            throw new TolakNilaiException("Tinggi prisma harus bernilai positif.");
+        }
         double luasAlasLL = super.hitungLuas();
         double kelilingAlasLL = super.hitungKeliling();
         double luasSelubung = kelilingAlasLL * this.tinggiPrisma;
@@ -31,14 +35,20 @@ public class PrismaLayangLayang extends LayangLayang {
         return this.luasPermukaan;
     }
 
-    public double hitungVolume(double diagonal1Alas, double diagonal2Alas, double tinggiPrisma) {
+    public double hitungVolume(double diagonal1Alas, double diagonal2Alas, double tinggiPrisma) throws TolakNilaiException {
+        if (diagonal1Alas <= 0 || diagonal2Alas <= 0 || tinggiPrisma <= 0) {
+            throw new TolakNilaiException("Diagonal alas dan tinggi prisma harus bernilai positif.");
+        }
         double luasAlas = 0.5 * diagonal1Alas * diagonal2Alas;
         this.volume = luasAlas * tinggiPrisma;
         return this.volume;
     }
 
     public double hitungLuasPermukaan(double diagonal1Alas, double diagonal2Alas, double sisiPendekAlas,
-                                      double sisiPanjangAlas, double tinggiPrisma) {
+                                      double sisiPanjangAlas, double tinggiPrisma) throws TolakNilaiException {
+        if (diagonal1Alas <= 0 || diagonal2Alas <= 0 || sisiPendekAlas <= 0 || sisiPanjangAlas <= 0 || tinggiPrisma <= 0) {
+            throw new TolakNilaiException("Diagonal alas, sisi pendek, sisi panjang, dan tinggi prisma harus bernilai positif.");
+        }
         double luasAlas = 0.5 * diagonal1Alas * diagonal2Alas;
         double kelilingAlas = 2 * (sisiPendekAlas + sisiPanjangAlas);
         double luasSelubung = kelilingAlas * tinggiPrisma;

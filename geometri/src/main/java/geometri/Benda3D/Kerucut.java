@@ -1,6 +1,7 @@
 package geometri.Benda3D;
 
 import geometri.Benda2D.Lingkaran;
+import geometri.TolakNilaiException;
 
 public class Kerucut extends Lingkaran {
 
@@ -9,7 +10,7 @@ public class Kerucut extends Lingkaran {
     public double volume;
     public double luasPermukaanKerucut;
 
-    public Kerucut(double jariJari, double tinggi) throws IllegalArgumentException {
+    public Kerucut(double jariJari, double tinggi) {
         super(jariJari);
         if (jariJari <= 0 || tinggi <= 0) {
             throw new IllegalArgumentException("Jari-jari dan tinggi harus lebih besar dari nol.");
@@ -22,26 +23,42 @@ public class Kerucut extends Lingkaran {
         return garisPelukisKerucut;
     }
 
-    public double hitungVolume() {
+    public double hitungVolume() throws TolakNilaiException {
+        if (tinggi <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi harus bernilai positif.");
+        }
         volume = (1.0 / 3.0) * super.hitungLuas() * tinggi;
         return volume;
     }
 
-    public double hitungVolume(double jariJariKerucut, double tinggiKerucut) {
+    public double hitungVolume(double jariJariKerucut, double tinggiKerucut) throws TolakNilaiException {
+        if (jariJariKerucut <= 0 || tinggiKerucut <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi harus bernilai positif.");
+        }
 
         volume = (1.0 / 3.0) * super.hitungLuas(jariJariKerucut) * tinggiKerucut;
         return volume;
     }
 
-    public double hitungLuasPermukaan() {
+    public double hitungLuasPermukaan() throws TolakNilaiException {
+        if (tinggi <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi harus bernilai positif.");
+        }
         double luasAlasKerucut = super.hitungLuas();
         double s = getGarisPelukis();
         double luasSelimut = Math.PI * jariJari * s;
         luasPermukaanKerucut = luasAlasKerucut + luasSelimut;
         return luasPermukaanKerucut;
     }
-
-    public double getTinggi() {
-        return tinggi;
+    public double hitungLuasPermukaan(double jariJariKerucut, double tinggiKerucut) throws TolakNilaiException {
+        if (jariJariKerucut <= 0 || tinggiKerucut <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi harus bernilai positif.");
+        }
+        double luasAlasKerucut = super.hitungLuas(jariJariKerucut);
+        double s = Math.sqrt(Math.pow(jariJariKerucut, 2) + Math.pow(tinggiKerucut, 2));
+        double luasSelimut = Math.PI * jariJariKerucut * s;
+        luasPermukaanKerucut = luasAlasKerucut + luasSelimut;
+        return luasPermukaanKerucut;
     }
+
 }

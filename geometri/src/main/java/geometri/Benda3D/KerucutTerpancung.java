@@ -1,5 +1,7 @@
 package geometri.Benda3D;
 
+import geometri.TolakNilaiException;
+
 /**
  * Merepresentasikan bangun ruang Kerucut Terpancung (Frustum).
  * Kelas ini mewarisi sifat-sifat dari Kerucut.
@@ -13,14 +15,11 @@ public class KerucutTerpancung extends Kerucut {
     // Field 'garisPelukisKerucut', 'volume', dan 'luasPermukaanKerucut'
     // sudah diwarisi (inherited) dari kelas Kerucut.
 
-    public KerucutTerpancung(double jariJariBawah, double jariJariAtas, double tinggiFrustum) throws IllegalArgumentException{
+    public KerucutTerpancung(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
         // Catatan: Panggilan super() ini akan mengisi field 'tinggi' di kelas Kerucut
         // dengan nilai 'tinggiFrustum', yang tidak digunakan di kelas ini.
         // Ini adalah konsekuensi dari struktur pewarisan yang ada.
         super(jariJariBawah, tinggiFrustum);
-        if (jariJariBawah <= 0 || jariJariAtas <= 0 || tinggiFrustum <= 0) {
-            throw new IllegalArgumentException("Semua dimensi harus lebih besar dari nol.");
-        }
         this.jariJariAtas = jariJariAtas;
         this.tinggiFrustum = tinggiFrustum;
     }
@@ -42,7 +41,10 @@ public class KerucutTerpancung extends Kerucut {
      * Rumus: V = (1/3) * pi * h * (R^2 + R*r + r^2)
      */
     @Override
-    public double hitungVolume() {
+    public double hitungVolume() throws TolakNilaiException {
+        if (this.jariJari <= 0 || this.jariJariAtas <= 0 || this.tinggiFrustum <= 0) {
+            throw new TolakNilaiException("Jari-jari bawah, jari-jari atas, dan tinggi frustum harus bernilai positif.");
+        }
         double R = this.jariJari; // Jari-jari bawah
         double r = this.jariJariAtas;
         // Menggunakan field 'volume' yang diwarisi
@@ -55,7 +57,10 @@ public class KerucutTerpancung extends Kerucut {
      * L = Luas Alas Bawah + Luas Alas Atas + Luas Selimut
      */
     @Override
-    public double hitungLuasPermukaan() {
+    public double hitungLuasPermukaan() throws TolakNilaiException {
+        if (this.jariJari <= 0 || this.jariJariAtas <= 0 || this.tinggiFrustum <= 0) {
+            throw new TolakNilaiException("Jari-jari bawah, jari-jari atas, dan tinggi frustum harus bernilai positif.");
+        }
         double R = this.jariJari; // Jari-jari bawah
         double r = this.jariJariAtas;
 
@@ -73,12 +78,18 @@ public class KerucutTerpancung extends Kerucut {
 
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
-    public double hitungVolume(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
+    public double hitungVolume(double jariJariBawah, double jariJariAtas, double tinggiFrustum) throws TolakNilaiException {
+        if (jariJariBawah <= 0 || jariJariAtas <= 0 || tinggiFrustum <= 0) {
+            throw new TolakNilaiException("Jari-jari bawah, jari-jari atas, dan tinggi frustum harus bernilai positif.");
+        }
         this.volume = (1.0 / 3.0) * Math.PI * tinggiFrustum * (Math.pow(jariJariBawah, 2) + jariJariBawah * jariJariAtas + Math.pow(jariJariAtas, 2));
         return this.volume;
     }
 
-    public double hitungLuasPermukaan(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
+    public double hitungLuasPermukaan(double jariJariBawah, double jariJariAtas, double tinggiFrustum)  throws TolakNilaiException {
+        if (jariJariBawah <= 0 || jariJariAtas <= 0 || tinggiFrustum <= 0) {
+            throw new TolakNilaiException("Jari-jari bawah, jari-jari atas, dan tinggi frustum harus bernilai positif.");
+        }
         double luasAlasBawah = Math.PI * jariJariBawah * jariJariBawah;
         double luasAlasAtas = Math.PI * jariJariAtas * jariJariAtas;
 

@@ -1,5 +1,7 @@
 package geometri.Benda3D;
 
+import geometri.TolakNilaiException;
+
 /**
  * Merepresentasikan bangun ruang Tembereng Bola (Segmen Bola).
  * Tembereng Bola adalah bagian dari Bola yang dipotong oleh sebuah bidang datar.
@@ -13,11 +15,8 @@ public class TemberengBola extends Bola {
     private double jariJariAlas;
     private double luasPermukaanLengkung;
 
-    public TemberengBola(double jariJariBola, double tinggiTembereng) throws IllegalArgumentException {
+    public TemberengBola(double jariJariBola, double tinggiTembereng) {
         super(jariJariBola);
-        if (jariJariBola <= 0 || tinggiTembereng <= 0) {
-            throw new IllegalArgumentException("Jari-jari bola dan tinggi tembereng harus lebih besar dari nol.");
-        }
         this.tinggiTembereng = tinggiTembereng;
     }
 
@@ -25,7 +24,10 @@ public class TemberengBola extends Bola {
      * Menghitung dan mengembalikan jari-jari alas tembereng.
      * Metode ini diubah namanya dari get... menjadi hitung... untuk kejelasan.
      */
-    public double hitungJariJariAlas() {
+    public double hitungJariJariAlas() throws TolakNilaiException {
+        if (tinggiTembereng <= 0 || jariJari <= 0) {
+            throw new TolakNilaiException("Tinggi tembereng dan jari-jari bola harus bernilai positif.");
+        }
         // Menggunakan field public secara langsung
         this.jariJariAlas = Math.sqrt(this.tinggiTembereng * (2 * this.jariJari - this.tinggiTembereng));
         return this.jariJariAlas;
@@ -36,7 +38,10 @@ public class TemberengBola extends Bola {
      * V = (1/3) * pi * h^2 * (3R - h)
      */
     @Override
-    public double hitungVolume() {
+    public double hitungVolume() throws TolakNilaiException {
+        if (tinggiTembereng <= 0 || jariJari <= 0) {
+            throw new TolakNilaiException("Tinggi tembereng dan jari-jari bola harus bernilai positif.");
+        }
         // Menggunakan field 'volume' yang diwarisi
         volume = (1.0 / 3.0) * Math.PI * Math.pow(tinggiTembereng, 2) * (3 * jariJariAlas - tinggiTembereng);
         return volume;
@@ -45,7 +50,10 @@ public class TemberengBola extends Bola {
     /**
      * Menghitung luas permukaan lengkung (selimut) tembereng berdasarkan state objek.
      */
-    public double hitungLuasPermukaanLengkung() {
+    public double hitungLuasPermukaanLengkung() throws TolakNilaiException {
+        if (tinggiTembereng <= 0 || jariJari <= 0) {
+            throw new TolakNilaiException("Tinggi tembereng dan jari-jari bola harus bernilai positif.");
+        }
         luasPermukaanLengkung = 2 * Math.PI * jariJariAlas * tinggiTembereng;
         return luasPermukaanLengkung;
     }
@@ -55,7 +63,10 @@ public class TemberengBola extends Bola {
      * L = Luas Selimut Lengkung + Luas Alas
      */
     @Override
-    public double hitungLuasPermukaan() {
+    public double hitungLuasPermukaan() throws TolakNilaiException {
+        if (tinggiTembereng <= 0 || jariJari <= 0) {
+            throw new TolakNilaiException("Tinggi tembereng dan jari-jari bola harus bernilai positif.");
+        }
         double luasLengkung = this.hitungLuasPermukaanLengkung();
 
         double luasAlasTembereng = 0;
@@ -73,12 +84,18 @@ public class TemberengBola extends Bola {
 
     // --- METODE OVERLOAD BARU (SESUAI KONSEP BOLA) ---
 
-    public double hitungVolume(double jariJariBola, double tinggiTembereng) {
+    public double hitungVolume(double jariJariBola, double tinggiTembereng) throws TolakNilaiException {
+        if (jariJariBola <= 0 || tinggiTembereng <= 0) {
+            throw new TolakNilaiException("Jari-jari bola dan tinggi tembereng harus bernilai positif.");
+        }
         this.volume = (1.0 / 3.0) * Math.PI * Math.pow(tinggiTembereng, 2) * (3 * jariJariBola - tinggiTembereng);
         return this.volume;
     }
 
-    public double hitungLuasPermukaan(double jariJariBola, double tinggiTembereng) {
+    public double hitungLuasPermukaan(double jariJariBola, double tinggiTembereng) throws TolakNilaiException {
+        if (jariJariBola <= 0 || tinggiTembereng <= 0) {
+            throw new TolakNilaiException("Jari-jari bola dan tinggi tembereng harus bernilai positif.");
+        }
         double luasLengkung = 2 * Math.PI * jariJariBola * tinggiTembereng;
 
         double luasAlasTembereng = 0;

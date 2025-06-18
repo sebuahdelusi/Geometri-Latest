@@ -1,6 +1,7 @@
 package geometri.Benda3D;
 
 import geometri.Benda2D.Segitiga;
+import geometri.TolakNilaiException;
 
 /**
  * Merepresentasikan bangun ruang Prisma dengan alas berbentuk Segitiga.
@@ -16,9 +17,6 @@ public class PrismaSegitiga extends Segitiga {
                           double sisiA_alas, double sisiB_alas, double sisiC_alas,
                           double tinggiPrisma) throws IllegalArgumentException {
         super(alasSegitiga, tinggiSegitigaAlas, sisiA_alas, sisiB_alas, sisiC_alas);
-        if (tinggiPrisma <= 0) {
-            throw new IllegalArgumentException("Tinggi prisma harus lebih besar dari nol.");
-        }
         this.tinggiPrisma = tinggiPrisma;
     }
 
@@ -26,7 +24,10 @@ public class PrismaSegitiga extends Segitiga {
      * Menghitung volume prisma berdasarkan state objek.
      * V = Luas Alas * Tinggi Prisma
      */
-    public double hitungVolume() {
+    public double hitungVolume() throws TolakNilaiException {
+        if (this.tinggiPrisma <= 0) {
+            throw new TolakNilaiException("Tinggi prisma harus bernilai positif.");
+        }
         this.volume = super.hitungLuas() * this.tinggiPrisma;
         return this.volume;
     }
@@ -35,7 +36,10 @@ public class PrismaSegitiga extends Segitiga {
      * Menghitung luas permukaan prisma berdasarkan state objek.
      * L = (2 * Luas Alas) + (Keliling Alas * Tinggi Prisma)
      */
-    public double hitungLuasPermukaan() {
+    public double hitungLuasPermukaan() throws TolakNilaiException {
+        if (this.tinggiPrisma <= 0) {
+            throw new TolakNilaiException("Tinggi prisma harus bernilai positif.");
+        }
         double luasAlasSegitiga = super.hitungLuas();
         double kelilingAlasSegitiga = super.hitungKeliling();
         double luasSelubung = kelilingAlasSegitiga * this.tinggiPrisma;
@@ -45,14 +49,20 @@ public class PrismaSegitiga extends Segitiga {
 
     // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
-    public double hitungVolume(double alasAlas, double tinggiAlas, double tinggiPrisma) {
+    public double hitungVolume(double alasAlas, double tinggiAlas, double tinggiPrisma) throws TolakNilaiException {
+        if (tinggiPrisma <= 0) {
+            throw new TolakNilaiException("Tinggi prisma harus bernilai positif.");
+        }
         double luasAlas = 0.5 * alasAlas * tinggiAlas;
         this.volume = luasAlas * tinggiPrisma;
         return this.volume;
     }
 
     public double hitungLuasPermukaan(double alasAlas, double tinggiAlas, double sisiA,
-                                      double sisiB, double sisiC, double tinggiPrisma) {
+                                      double sisiB, double sisiC, double tinggiPrisma) throws TolakNilaiException {
+        if (tinggiPrisma <= 0) {
+            throw new TolakNilaiException("Tinggi prisma harus bernilai positif.");
+        }
         double luasAlas = 0.5 * alasAlas * tinggiAlas;
         double kelilingAlas = sisiA + sisiB + sisiC;
         double luasSelubung = kelilingAlas * tinggiPrisma;

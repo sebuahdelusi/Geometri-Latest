@@ -1,5 +1,7 @@
 package geometri.Benda3D;
 
+import geometri.TolakNilaiException;
+
 /**
  * Merepresentasikan Juring Bola (Sektor Bola).
  * Juring Bola dibentuk oleh sebuah tembereng bola dan kerucut yang puncaknya
@@ -10,11 +12,8 @@ public class JuringBola extends Bola {
     public double tinggiTemberengDasar;
     protected double jariJariAlasTembereng;
 
-    public JuringBola(double jariJariBola, double tinggiTemberengDasar) throws IllegalArgumentException {
+    public JuringBola(double jariJariBola, double tinggiTemberengDasar) {
         super(jariJariBola);
-        if (tinggiTemberengDasar <= 0 || tinggiTemberengDasar > (2 * jariJariBola)) {
-            throw new IllegalArgumentException("Tinggi tembereng dasar harus positif dan tidak melebihi diameter bola.");
-        }
         this.tinggiTemberengDasar = tinggiTemberengDasar;
     }
 
@@ -22,7 +21,10 @@ public class JuringBola extends Bola {
      * Menghitung dan mengembalikan jari-jari alas tembereng yang membentuk juring.
      * Metode ini memiliki efek samping, yaitu menyimpan hasilnya ke field.
      */
-    public double hitungJariJariAlasTembereng() {
+    public double hitungJariJariAlasTembereng() throws IllegalArgumentException {
+        if (this.tinggiTemberengDasar <= 0 || this.jariJari <= 0) {
+            throw new IllegalArgumentException("Tinggi tembereng dan jari-jari harus bernilai positif.");
+        }
         this.jariJariAlasTembereng = Math.sqrt(this.tinggiTemberengDasar * (2 * this.jariJari - this.tinggiTemberengDasar));
         return this.jariJariAlasTembereng;
     }
@@ -32,7 +34,10 @@ public class JuringBola extends Bola {
      * V = (2/3) * pi * R^2 * h
      */
     @Override
-    public double hitungVolume() {
+    public double hitungVolume() throws TolakNilaiException {
+        if (this.tinggiTemberengDasar <= 0 || this.jariJari <= 0) {
+            throw new TolakNilaiException("Tinggi tembereng dan jari-jari harus bernilai positif.");
+        }
         this.volume = (2.0 / 3.0) * Math.PI * Math.pow(this.jariJari, 2) * this.tinggiTemberengDasar;
         return this.volume;
     }
@@ -42,7 +47,10 @@ public class JuringBola extends Bola {
      * L = Luas Tembereng + Luas Selimut Kerucut
      */
     @Override
-    public double hitungLuasPermukaan() {
+    public double hitungLuasPermukaan() throws TolakNilaiException {
+        if (this.tinggiTemberengDasar <= 0 || this.jariJari <= 0) {
+            throw new TolakNilaiException("Tinggi tembereng dan jari-jari harus bernilai positif.");
+        }
         double luasLengkungTembereng = 2 * Math.PI * this.jariJari * this.tinggiTemberengDasar;
 
         // Hitung luas selimut kerucut di dalamnya
@@ -61,12 +69,18 @@ public class JuringBola extends Bola {
 
     // --- METODE OVERLOAD BARU (SESUAI KONSEP BOLA) ---
 
-    public double hitungVolume(double jariJariBola, double tinggiTemberengDasar) {
+    public double hitungVolume(double jariJariBola, double tinggiTemberengDasar) throws TolakNilaiException {
+        if (jariJariBola <= 0 || tinggiTemberengDasar <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi tembereng harus bernilai positif.");
+        }
         this.volume = (2.0 / 3.0) * Math.PI * Math.pow(jariJariBola, 2) * tinggiTemberengDasar;
         return this.volume;
     }
 
-    public double hitungLuasPermukaan(double jariJariBola, double tinggiTemberengDasar) {
+    public double hitungLuasPermukaan(double jariJariBola, double tinggiTemberengDasar) throws TolakNilaiException {
+        if (jariJariBola <= 0 || tinggiTemberengDasar <= 0) {
+            throw new TolakNilaiException("Jari-jari dan tinggi tembereng harus bernilai positif.");
+        }
 
         double luasLengkungTembereng = 2 * Math.PI * jariJariBola * tinggiTemberengDasar;
 
