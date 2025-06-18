@@ -20,7 +20,8 @@ public class LimasLayangLayang extends LayangLayang {
      * Konstruktor lengkap untuk kalkulasi volume dan luas permukaan.
      */
     public LimasLayangLayang(double diagonal1Alas, double diagonal2Alas, double sisiPendekAlas, double sisiPanjangAlas,
-                             double tinggiLimas, double tinggiSisiTegakPendek, double tinggiSisiTegakPanjang) {
+                             double tinggiLimas, double tinggiSisiTegakPendek, double tinggiSisiTegakPanjang) throws IllegalArgumentException {
+
         super(diagonal1Alas, diagonal2Alas, sisiPendekAlas, sisiPanjangAlas);
         if (tinggiLimas <= 0 || tinggiSisiTegakPendek <= 0 || tinggiSisiTegakPanjang <= 0) {
             throw new IllegalArgumentException("Tinggi limas dan tinggi sisi tegak harus bernilai positif.");
@@ -73,9 +74,6 @@ public class LimasLayangLayang extends LayangLayang {
 
     public double hitungLuasPermukaan(double diagonal1Alas, double diagonal2Alas, double sisiPendekAlas,
                                       double sisiPanjangAlas, double tinggiSisiTegakPendek, double tinggiSisiTegakPanjang) {
-        if (diagonal1Alas <= 0 || diagonal2Alas <= 0 || sisiPendekAlas <= 0 || sisiPanjangAlas <= 0 || tinggiSisiTegakPendek <= 0 || tinggiSisiTegakPanjang <= 0) {
-            throw new IllegalArgumentException("Dimensi untuk luas permukaan harus positif.");
-        }
         double luasAlas = 0.5 * diagonal1Alas * diagonal2Alas;
         double luasTegakPendek = sisiPendekAlas * tinggiSisiTegakPendek; // 2 * (0.5 * sisi * ts)
         double luasTegakPanjang = sisiPanjangAlas * tinggiSisiTegakPanjang; // 2 * (0.5 * sisi * ts)

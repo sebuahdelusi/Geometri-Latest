@@ -8,12 +8,15 @@ import java.lang.Math;
  */
 public class TemberengLingkaran extends Lingkaran {
 
-    private double sudutPusatDerajat;
+    public double sudutPusatDerajat;
     // Field 'luas' dan 'keliling' sudah diwarisi (inherited) dari kelas Lingkaran.
 
-    public TemberengLingkaran(double jariJari, double sudutPusatDerajat) {
+    public TemberengLingkaran(double jariJari, double sudutPusatDerajat) throws IllegalArgumentException {
 
         super(jariJari);
+        if (sudutPusatDerajat <= 0 || sudutPusatDerajat >= 360) {
+            throw new IllegalArgumentException("Sudut pusat harus lebih dari 0 dan kurang dari 360 derajat.");
+        }
         this.sudutPusatDerajat = sudutPusatDerajat;
     }
 

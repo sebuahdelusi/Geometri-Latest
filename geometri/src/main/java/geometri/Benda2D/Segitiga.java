@@ -12,8 +12,11 @@ public class Segitiga extends AbstractGeometriDasar {
     public double luas;
     public double keliling;
 
-    public Segitiga(double alas, double tinggi, double sisiA, double sisiB, double sisiC) {
+    public Segitiga(double alas, double tinggi, double sisiA, double sisiB, double sisiC) throws IllegalArgumentException {
         super("Segitiga");
+        if (alas <= 0 || tinggi <= 0 || sisiA <= 0 || sisiB <= 0 || sisiC <= 0) {
+            throw new IllegalArgumentException("Semua dimensi harus bernilai positif.");
+        }
         this.alasUntukLuas = alas; // 'this' diperlukan
         this.tinggiUntukLuas = tinggi; // 'this' diperlukan
         this.sisiA = sisiA; // 'this' diperlukan

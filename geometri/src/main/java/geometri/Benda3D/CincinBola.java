@@ -1,9 +1,5 @@
 package geometri.Benda3D;
 
-/**
- * Merepresentasikan Cincin Bola (Segmen bola dengan dua alas).
- * Cincin Bola adalah bagian dari Bola yang dipotong oleh dua bidang sejajar.
- */
 public class CincinBola extends Bola {
 
     // Dimensi dibuat public agar konsisten dengan `jariJari` pada superclass
@@ -16,8 +12,11 @@ public class CincinBola extends Bola {
 
     // Field 'volume' dan 'luasPermukaanBola' diwarisi dari kelas Bola
 
-    public CincinBola(double jariJariBola, double tinggiCincin, double jariJariAlas1, double jariJariAlas2) {
+    public CincinBola(double jariJariBola, double tinggiCincin, double jariJariAlas1, double jariJariAlas2) throws IllegalArgumentException {
         super(jariJariBola);
+        if (jariJariBola <= 0 || tinggiCincin <= 0 || jariJariAlas1 <= 0 || jariJariAlas2 <= 0) {
+            throw new IllegalArgumentException("Semua dimensi harus lebih besar dari nol.");
+        }
         this.tinggiCincin = tinggiCincin;
         this.jariJariAlas1 = jariJariAlas1;
         this.jariJariAlas2 = jariJariAlas2;

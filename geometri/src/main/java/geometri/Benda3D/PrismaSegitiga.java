@@ -14,8 +14,11 @@ public class PrismaSegitiga extends Segitiga {
 
     public PrismaSegitiga(double alasSegitiga, double tinggiSegitigaAlas,
                           double sisiA_alas, double sisiB_alas, double sisiC_alas,
-                          double tinggiPrisma) {
+                          double tinggiPrisma) throws IllegalArgumentException {
         super(alasSegitiga, tinggiSegitigaAlas, sisiA_alas, sisiB_alas, sisiC_alas);
+        if (tinggiPrisma <= 0) {
+            throw new IllegalArgumentException("Tinggi prisma harus lebih besar dari nol.");
+        }
         this.tinggiPrisma = tinggiPrisma;
     }
 

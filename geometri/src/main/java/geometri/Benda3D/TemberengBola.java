@@ -13,8 +13,11 @@ public class TemberengBola extends Bola {
     private double jariJariAlas;
     private double luasPermukaanLengkung;
 
-    public TemberengBola(double jariJariBola, double tinggiTembereng) {
+    public TemberengBola(double jariJariBola, double tinggiTembereng) throws IllegalArgumentException {
         super(jariJariBola);
+        if (jariJariBola <= 0 || tinggiTembereng <= 0) {
+            throw new IllegalArgumentException("Jari-jari bola dan tinggi tembereng harus lebih besar dari nol.");
+        }
         this.tinggiTembereng = tinggiTembereng;
     }
 

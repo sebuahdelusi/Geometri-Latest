@@ -17,8 +17,11 @@ public class LimasBelahKetupat extends BelahKetupat {
 
     // Field 'luas' dan 'keliling' untuk alas diwarisi dari BelahKetupat.
 
-    public LimasBelahKetupat(double diagonal1Alas, double diagonal2Alas, double sisiAlas, double tinggiLimas) {
+    public LimasBelahKetupat(double diagonal1Alas, double diagonal2Alas, double sisiAlas, double tinggiLimas) throws IllegalArgumentException {
         super(diagonal1Alas, diagonal2Alas, sisiAlas);
+        if (tinggiLimas <= 0) {
+            throw new IllegalArgumentException("Tinggi limas harus bernilai positif.");
+        }
         this.tinggiLimas = tinggiLimas;
     }
 

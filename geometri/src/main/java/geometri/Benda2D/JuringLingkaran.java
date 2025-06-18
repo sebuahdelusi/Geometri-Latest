@@ -4,8 +4,11 @@ public class JuringLingkaran extends Lingkaran {
 
     public double sudutBusurDerajat; // Dimensi spesifik juring
 
-    public JuringLingkaran(double jariJari) {
+    public JuringLingkaran(double jariJari, double sudutBusurDerajat) throws IllegalArgumentException {
         super(jariJari);
+        if (jariJari <= 0 || sudutBusurDerajat <= 0 || sudutBusurDerajat >= 360) {
+            throw new IllegalArgumentException("Jari-jari harus lebih besar dari nol dan sudut busur harus antara 0 dan 360 derajat.");
+        }
         this.sudutBusurDerajat = sudutBusurDerajat; // 'this' diperlukan
     }
 

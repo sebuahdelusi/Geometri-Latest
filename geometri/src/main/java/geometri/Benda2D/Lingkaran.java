@@ -5,14 +5,17 @@ import geometri.AbstractGeometriDasar;
 /**
  * Kelas yang merepresentasikan bangun datar Lingkaran.
  */
-public class Lingkaran extends AbstractGeometriDasar {
+public class Lingkaran extends AbstractGeometriDasar implements Runnable{
 
     public double jariJari;
     public double luas;
     public double keliling;
 
-    public Lingkaran(double jariJari) {
+    public Lingkaran(double jariJari) throws IllegalArgumentException {
         super("Lingkaran");
+        if (jariJari <= 0) {
+            throw new IllegalArgumentException("Jari-jari harus lebih besar dari nol.");
+        }
         this.jariJari = jariJari;
     }
 
@@ -38,4 +41,11 @@ public class Lingkaran extends AbstractGeometriDasar {
         return keliling;
     }
 
+    @Override
+    public void run() {
+        System.out.println("Hitung luas dan keliling lingkaran dengan jari-jari: " + jariJari);
+        System.out.println("Luas: " + hitungLuas());
+        System.out.println("Keliling: " + hitungKeliling());
+
+    }
 }

@@ -23,8 +23,11 @@ public class LimasTrapesium extends Trapesium {
      */
     public LimasTrapesium(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlas,
                           double sisiKiriAlas, double sisiKananAlas, double tinggiLimas,
-                          double tsAtas, double tsBawah, double tsKiri, double tsKanan) {
+                          double tsAtas, double tsBawah, double tsKiri, double tsKanan) throws IllegalArgumentException {
         super(sisiAtasAlas, sisiBawahAlas, tinggiAlas, sisiKiriAlas, sisiKananAlas);
+        if (tinggiLimas <= 0 || tsAtas <= 0 || tsBawah <= 0 || tsKiri <= 0 || tsKanan <= 0) {
+            throw new IllegalArgumentException("Tinggi limas dan tinggi sisi tegak harus bernilai positif.");
+        }
         this.tinggiLimas = tinggiLimas;
         this.tinggiSisiTegakAtas = tsAtas;
         this.tinggiSisiTegakBawah = tsBawah;

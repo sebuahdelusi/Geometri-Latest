@@ -9,7 +9,7 @@ public class PersegiPanjang extends AbstractGeometriDasar {
     public double luas;
     public double keliling;
 
-    public PersegiPanjang(double panjang, double lebar) {
+    public PersegiPanjang(double panjang, double lebar) throws IllegalArgumentException {
         super("Persegi Panjang");
         if (panjang <= 0 || lebar <= 0) {
             throw new IllegalArgumentException("Panjang dan lebar harus bernilai positif.");

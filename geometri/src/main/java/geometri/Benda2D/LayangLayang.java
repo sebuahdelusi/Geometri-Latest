@@ -11,8 +11,11 @@ public class LayangLayang extends AbstractGeometriDasar {
     public double luas;
     public double keliling;
 
-    public LayangLayang(double diagonal1, double diagonal2, double sisiPendek, double sisiPanjang) {
+    public LayangLayang(double diagonal1, double diagonal2, double sisiPendek, double sisiPanjang) throws IllegalArgumentException {
         super("Layang-Layang");
+        if (diagonal1 <= 0 || diagonal2 <= 0 || sisiPendek <= 0 || sisiPanjang <= 0) {
+            throw new IllegalArgumentException("Semua dimensi harus bernilai positif.");
+        }
         this.diagonal1 = diagonal1;     // 'this' diperlukan
         this.diagonal2 = diagonal2;     // 'this' diperlukan
         this.sisiPendek = sisiPendek;   // 'this' diperlukan

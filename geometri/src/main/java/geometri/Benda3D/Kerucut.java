@@ -9,8 +9,11 @@ public class Kerucut extends Lingkaran {
     public double volume;
     public double luasPermukaanKerucut;
 
-    public Kerucut(double jariJari, double tinggi) {
+    public Kerucut(double jariJari, double tinggi) throws IllegalArgumentException {
         super(jariJari);
+        if (jariJari <= 0 || tinggi <= 0) {
+            throw new IllegalArgumentException("Jari-jari dan tinggi harus lebih besar dari nol.");
+        }
         this.tinggi = tinggi;
     }
 

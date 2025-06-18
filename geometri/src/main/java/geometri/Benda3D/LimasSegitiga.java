@@ -22,8 +22,11 @@ public class LimasSegitiga extends Segitiga {
      */
     public LimasSegitiga(double alasSegitigaAlas, double tinggiSegitigaAlas, double sisiA_alas,
                          double sisiB_alas, double sisiC_alas, double tinggiLimas,
-                         double tinggiSisiTegakA, double tinggiSisiTegakB, double tinggiSisiTegakC) {
+                         double tinggiSisiTegakA, double tinggiSisiTegakB, double tinggiSisiTegakC) throws IllegalArgumentException {
         super(alasSegitigaAlas, tinggiSegitigaAlas, sisiA_alas, sisiB_alas, sisiC_alas);
+        if (tinggiLimas <= 0 || tinggiSisiTegakA <= 0 || tinggiSisiTegakB <= 0 || tinggiSisiTegakC <= 0) {
+            throw new IllegalArgumentException("Tinggi limas dan tinggi sisi tegak harus bernilai positif.");
+        }
         this.tinggiLimas = tinggiLimas;
         this.tinggiSisiTegakA = tinggiSisiTegakA;
         this.tinggiSisiTegakB = tinggiSisiTegakB;
@@ -59,8 +62,6 @@ public class LimasSegitiga extends Segitiga {
         this.luasPermukaan = luasAlasLimas + luasSelubungLimas;
         return this.luasPermukaan;
     }
-
-    // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
 
     public double hitungVolume(double alasSegitigaAlas, double tinggiSegitigaAlas, double tinggiLimas) {
         double luasAlas = 0.5 * alasSegitigaAlas * tinggiSegitigaAlas;

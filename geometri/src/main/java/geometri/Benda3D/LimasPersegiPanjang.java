@@ -16,8 +16,11 @@ public class LimasPersegiPanjang extends PersegiPanjang {
 
     // Field 'luas' dan 'keliling' untuk alas diwarisi dari PersegiPanjang.
 
-    public LimasPersegiPanjang(double panjangAlas, double lebarAlas, double tinggiLimas) {
+    public LimasPersegiPanjang(double panjangAlas, double lebarAlas, double tinggiLimas) throws IllegalArgumentException{
         super(panjangAlas, lebarAlas);
+        if (tinggiLimas <= 0) {
+            throw new IllegalArgumentException("Tinggi limas harus bernilai positif.");
+        }
         this.tinggiLimas = tinggiLimas;
     }
 
@@ -34,7 +37,7 @@ public class LimasPersegiPanjang extends PersegiPanjang {
      * Menghitung luas selubung (total luas sisi tegak) limas.
      */
     public double hitungLuasSelubung() {
-        // Menggunakan field public secara langsung dari superclass
+
         double ts1 = Math.sqrt(Math.pow(this.tinggiLimas, 2) + Math.pow(this.lebar / 2.0, 2));
         double luasSisiTegak1 = 2 * (0.5 * this.panjang * ts1);
 
@@ -56,8 +59,6 @@ public class LimasPersegiPanjang extends PersegiPanjang {
         return this.luasPermukaan;
     }
 
-    // --- METODE OVERLOAD BARU (SESUAI KONSEP KELAS INDUK) ---
-
     public double hitungVolume(double panjangAlas, double lebarAlas, double tinggiLimas) {
         double luasAlas = panjangAlas * lebarAlas;
         this.volume = (1.0 / 3.0) * luasAlas * tinggiLimas;
@@ -66,8 +67,6 @@ public class LimasPersegiPanjang extends PersegiPanjang {
 
     public double hitungLuasPermukaan(double panjangAlas, double lebarAlas, double tinggiLimas) {
         double luasAlas = panjangAlas * lebarAlas;
-
-        // Hitung luas selubung
         double ts1 = Math.sqrt(Math.pow(tinggiLimas, 2) + Math.pow(lebarAlas / 2.0, 2));
         double luasTegak1 = panjangAlas * ts1;
         double ts2 = Math.sqrt(Math.pow(tinggiLimas, 2) + Math.pow(panjangAlas / 2.0, 2));

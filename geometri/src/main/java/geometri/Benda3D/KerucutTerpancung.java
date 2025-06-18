@@ -13,11 +13,14 @@ public class KerucutTerpancung extends Kerucut {
     // Field 'garisPelukisKerucut', 'volume', dan 'luasPermukaanKerucut'
     // sudah diwarisi (inherited) dari kelas Kerucut.
 
-    public KerucutTerpancung(double jariJariBawah, double jariJariAtas, double tinggiFrustum) {
+    public KerucutTerpancung(double jariJariBawah, double jariJariAtas, double tinggiFrustum) throws IllegalArgumentException{
         // Catatan: Panggilan super() ini akan mengisi field 'tinggi' di kelas Kerucut
         // dengan nilai 'tinggiFrustum', yang tidak digunakan di kelas ini.
         // Ini adalah konsekuensi dari struktur pewarisan yang ada.
         super(jariJariBawah, tinggiFrustum);
+        if (jariJariBawah <= 0 || jariJariAtas <= 0 || tinggiFrustum <= 0) {
+            throw new IllegalArgumentException("Semua dimensi harus lebih besar dari nol.");
+        }
         this.jariJariAtas = jariJariAtas;
         this.tinggiFrustum = tinggiFrustum;
     }

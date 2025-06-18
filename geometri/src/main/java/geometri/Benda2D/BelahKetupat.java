@@ -10,8 +10,11 @@ public class BelahKetupat extends AbstractGeometriDasar {
     public double luas;
     public double keliling;
 
-    public BelahKetupat(double diagonal1, double diagonal2, double sisi) {
+    public BelahKetupat(double diagonal1, double diagonal2, double sisi) throws IllegalArgumentException{
         super("Belah Ketupat");
+        if (diagonal1 <= 0 || diagonal2 <= 0 || sisi <= 0) {
+            throw new IllegalArgumentException("Semua dimensi harus bernilai positif.");
+        }
         this.diagonal1 = diagonal1; // 'this' diperlukan
         this.diagonal2 = diagonal2; // 'this' diperlukan
         this.sisi = sisi;           // 'this' diperlukan

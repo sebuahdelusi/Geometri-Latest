@@ -20,7 +20,7 @@ public class LimasJajarGenjang extends JajarGenjang {
      * Konstruktor lengkap untuk kalkulasi volume dan luas permukaan.
      */
     public LimasJajarGenjang(double alasAlas, double tinggiAlas, double sisiMiringAlas,
-                             double tinggiLimas, double tinggiSisiTegakAlas, double tinggiSisiTegakMiring) {
+                             double tinggiLimas, double tinggiSisiTegakAlas, double tinggiSisiTegakMiring) throws IllegalArgumentException{
         super(alasAlas, tinggiAlas, sisiMiringAlas);
         if (tinggiLimas <= 0 || tinggiSisiTegakAlas <= 0 || tinggiSisiTegakMiring <= 0) {
             throw new IllegalArgumentException("Tinggi limas dan tinggi sisi tegak harus bernilai positif.");

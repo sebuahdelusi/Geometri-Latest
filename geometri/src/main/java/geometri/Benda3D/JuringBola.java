@@ -10,7 +10,7 @@ public class JuringBola extends Bola {
     public double tinggiTemberengDasar;
     protected double jariJariAlasTembereng;
 
-    public JuringBola(double jariJariBola, double tinggiTemberengDasar) {
+    public JuringBola(double jariJariBola, double tinggiTemberengDasar) throws IllegalArgumentException {
         super(jariJariBola);
         if (tinggiTemberengDasar <= 0 || tinggiTemberengDasar > (2 * jariJariBola)) {
             throw new IllegalArgumentException("Tinggi tembereng dasar harus positif dan tidak melebihi diameter bola.");

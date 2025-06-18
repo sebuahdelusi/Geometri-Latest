@@ -12,8 +12,11 @@ public class PrismaJajarGenjang extends JajarGenjang {
     private double volume;
     private double luasPermukaan;
 
-    public PrismaJajarGenjang(double alasAlas, double tinggiAlas, double sisiMiringAlas, double tinggiPrisma) {
+    public PrismaJajarGenjang(double alasAlas, double tinggiAlas, double sisiMiringAlas, double tinggiPrisma) throws IllegalArgumentException {
         super(alasAlas, tinggiAlas, sisiMiringAlas);
+        if (tinggiPrisma <= 0 || alasAlas <= 0 || tinggiAlas <= 0 || sisiMiringAlas <= 0) {
+            throw new IllegalArgumentException("Tinggi prisma harus bernilai positif.");
+        }
         this.tinggiPrisma = tinggiPrisma;
     }
 

@@ -8,8 +8,12 @@ public class Persegi extends AbstractGeometriDasar {
     public double luas;
     public double keliling;
 
-    public Persegi(double sisi) {
+    public Persegi(double sisi) throws IllegalArgumentException {
         super("Persegi");
+        if (sisi <= 0) {
+            throw new IllegalArgumentException("Sisi harus lebih besar dari nol.");
+        }
+
         this.sisi = sisi; // 'this' diperlukan di sini karena parameter sama dengan nama field
     }
 

@@ -9,8 +9,11 @@ public class LimasPersegi extends Persegi {
     private double luasPermukaanLimas;
 
 
-    public LimasPersegi(double sisiAlas, double tinggiLimas) {
+    public LimasPersegi(double sisiAlas, double tinggiLimas) throws IllegalArgumentException {
         super(sisiAlas);
+        if (tinggiLimas <= 0) {
+            throw new IllegalArgumentException("Tinggi limas harus lebih besar dari nol.");
+        }
         this.tinggiLimas = tinggiLimas;
     }
 

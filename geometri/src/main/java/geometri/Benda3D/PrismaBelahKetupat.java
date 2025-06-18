@@ -8,8 +8,11 @@ public class PrismaBelahKetupat extends BelahKetupat {
     private double volume;
     private double luasPermukaanPrismaBK;
 
-    public PrismaBelahKetupat(double diagonal1Alas, double diagonal2Alas, double sisi, double tinggiPrisma) {
+    public PrismaBelahKetupat(double diagonal1Alas, double diagonal2Alas, double sisi, double tinggiPrisma) throws IllegalArgumentException {
         super(diagonal1Alas, diagonal2Alas, sisi);
+        if (tinggiPrisma <= 0 || diagonal1Alas <= 0 || diagonal2Alas <= 0 || sisi <= 0) {
+            throw new IllegalArgumentException("Tinggi prisma harus bernilai positif.");
+        }
         this.tinggiPrisma = tinggiPrisma;
     }
 

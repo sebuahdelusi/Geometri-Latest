@@ -2,9 +2,6 @@ package geometri.Benda3D;
 
 import geometri.Benda2D.LayangLayang;
 
-/**
- * Merepresentasikan bangun ruang Prisma dengan alas Layang-Layang.
- */
 public class PrismaLayangLayang extends LayangLayang {
 
     // Dimensi dan hasil kalkulasi dibuat public agar konsisten
@@ -13,8 +10,11 @@ public class PrismaLayangLayang extends LayangLayang {
     private double luasPermukaan;
 
     public PrismaLayangLayang(double diagonal1Alas, double diagonal2Alas, double sisiPendekAlas,
-                              double sisiPanjangAlas, double tinggiPrisma) {
+                              double sisiPanjangAlas, double tinggiPrisma) throws IllegalArgumentException {
         super(diagonal1Alas, diagonal2Alas, sisiPendekAlas, sisiPanjangAlas);
+        if (tinggiPrisma <= 0 || diagonal1Alas <= 0 || diagonal2Alas <= 0 || sisiPendekAlas <= 0 || sisiPanjangAlas <= 0) {
+            throw new IllegalArgumentException("Tinggi prisma harus bernilai positif.");
+        }
         this.tinggiPrisma = tinggiPrisma;
     }
 

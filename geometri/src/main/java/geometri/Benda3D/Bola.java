@@ -7,8 +7,11 @@ public class Bola extends Lingkaran {
     public double volume;
     public double luasPermukaanBola;
 
-    public Bola(double jariJari) {
+    public Bola(double jariJari) throws IllegalArgumentException {
         super(jariJari);
+        if (jariJari <= 0) {
+            throw new IllegalArgumentException("Jari-jari harus lebih besar dari nol.");
+        }
     }
 
     public double hitungVolume() {
@@ -27,9 +30,6 @@ public class Bola extends Lingkaran {
     }
 
     public double hitungLuasPermukaan(double jariJari) {
-        if (jariJari <= 0) {
-            throw new IllegalArgumentException("Jari-jari harus bernilai positif.");
-        }
         luasPermukaanBola = 4 * Math.PI * Math.pow(jariJari, 2);
         return luasPermukaanBola;
     }

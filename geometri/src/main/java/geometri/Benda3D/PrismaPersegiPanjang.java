@@ -12,8 +12,11 @@ public class PrismaPersegiPanjang extends PersegiPanjang {
     private double volume;
     private double luasPermukaan;
 
-    public PrismaPersegiPanjang(double panjangAlas, double lebarAlas, double tinggiPrisma) {
+    public PrismaPersegiPanjang(double panjangAlas, double lebarAlas, double tinggiPrisma) throws IllegalArgumentException {
         super(panjangAlas, lebarAlas);
+        if (tinggiPrisma <= 0 || panjangAlas <= 0 || lebarAlas <= 0) {
+            throw new IllegalArgumentException("Tinggi prisma harus lebih besar dari nol.");
+        }
         this.tinggiPrisma = tinggiPrisma;
     }
 

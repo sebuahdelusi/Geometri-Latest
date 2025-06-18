@@ -13,8 +13,12 @@ public class PrismaTrapesium extends Trapesium {
     private double luasPermukaan;
 
     public PrismaTrapesium(double sisiAtasAlas, double sisiBawahAlas, double tinggiAlasTrapesium,
-                           double sisiKiriAlas, double sisiKananAlas, double tinggiPrisma) {
+                           double sisiKiriAlas, double sisiKananAlas, double tinggiPrisma) throws IllegalArgumentException {
         super(sisiAtasAlas, sisiBawahAlas, tinggiAlasTrapesium, sisiKiriAlas, sisiKananAlas);
+        if (tinggiPrisma <= 0 || sisiAtasAlas <= 0 || sisiBawahAlas <= 0 || tinggiAlasTrapesium <= 0 || sisiKiriAlas <= 0 || sisiKananAlas <= 0) {
+                    throw new IllegalArgumentException("Semua parameter harus bernilai positif.");
+        }
+
         this.tinggiPrisma = tinggiPrisma;
     }
 
